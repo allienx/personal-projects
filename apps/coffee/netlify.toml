@@ -1,4 +1,6 @@
 [build]
+  base = "apps/coffee/"
+  publish = "dist/"
   command = "yarn build"
 
 [build.environment]
