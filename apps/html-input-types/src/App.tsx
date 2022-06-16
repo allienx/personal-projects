@@ -1,16 +1,14 @@
 import {
   Box,
-  Center,
-  Flex,
   FormControl,
   FormLabel,
-  Heading,
   Select,
   Text,
   useBreakpointValue,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import LogoIcon from 'src/components/Icons/LogoIcon'
+import { PageContent, PageHeader, PageWrapper } from 'ui'
 
 const AvailableHtmlInputTypes = [
   'text',
@@ -43,28 +41,18 @@ export default function App() {
   const isColor = inputType === 'color'
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      margin="0 auto"
-      maxWidth={450}
-      minHeight="100vh"
-      px={5}
-    >
-      <Flex
-        alignItems="center"
-        as="header"
-        flexShrink={0}
-        justifyContent="center"
-        py={8}
-      >
-        <Heading as="div" fontFamily="mono" textAlign="center">
-          html input types
-        </Heading>
-        <LogoIcon boxSize="2em" ml={3} />
-      </Flex>
+    <PageWrapper maxWidth={450}>
+      <PageHeader
+        icon={<LogoIcon boxSize="2em" ml={3} />}
+        title="html input types"
+      />
 
-      <Center flexDirection="column" mt={5}>
+      <PageContent
+        alignItems="center"
+        display="flex"
+        flexDirection="column"
+        mt={5}
+      >
         <Box width={300}>
           <FormControl>
             <FormLabel htmlFor="inputType">Type</FormLabel>
@@ -114,7 +102,7 @@ export default function App() {
             </Box>
           </Box>
         </Box>
-      </Center>
-    </Box>
+      </PageContent>
+    </PageWrapper>
   )
 }

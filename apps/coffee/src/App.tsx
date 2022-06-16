@@ -1,13 +1,14 @@
-import { Center, Image } from '@chakra-ui/react'
+import { Image } from '@chakra-ui/react'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import coffeeEmoji from './assets/coffee-2615.svg'
+import coffeeEmoji from 'src/assets/coffee-2615.svg'
+import { PageWrapper } from 'ui'
 
 export default function App() {
   const [stopJumping, setStopJumping] = useState(false)
 
   return (
-    <Center height="100vh">
+    <PageWrapper alignItems="center" justifyContent="center">
       <a href="https://www.vervecoffee.com/account">
         <motion.div
           animate={{
@@ -36,6 +37,6 @@ export default function App() {
           />
         </motion.div>
       </a>
-    </Center>
+    </PageWrapper>
   )
 }
