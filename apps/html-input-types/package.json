@@ -1,8 +1,7 @@
 {
-  "name": "coffee",
+  "name": "html-input-types",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -10,18 +9,23 @@
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
     "format": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "format:fix": "prettier --write .",
+    "gen:theme-typings": "chakra-cli tokens src/config/theme/theme.ts",
+    "postinstall": "yarn run gen:theme-typings"
   },
   "dependencies": {
     "@chakra-ui/react": "2.2.1",
     "@emotion/react": "11.9.0",
     "@emotion/styled": "11.8.1",
+    "@fontsource/jetbrains-mono": "4.5.8",
     "framer-motion": "6.3.10",
     "lodash": "4.17.21",
     "react": "18.1.0",
     "react-dom": "18.1.0"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "2.1.0",
+    "@types/node": "17.0.41",
     "@types/react": "18.0.12",
     "@types/react-dom": "18.0.5",
     "@vitejs/plugin-react": "1.3.2",
