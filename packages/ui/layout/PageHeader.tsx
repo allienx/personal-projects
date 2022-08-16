@@ -1,5 +1,5 @@
 import { Flex, FlexProps, Heading } from '@chakra-ui/react'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 interface PageHeaderProps extends FlexProps {
   icon?: ReactNode
