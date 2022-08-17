@@ -10,6 +10,7 @@ import {
   Tooltip,
   useClipboard,
 } from '@chakra-ui/react'
+import LogoIcon from 'components/Icons/LogoIcon'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { PageHeader, PageWrapper } from 'ui'
 
@@ -39,7 +40,7 @@ export default function HomePage({
 
   return (
     <PageWrapper maxWidth={640}>
-      <PageHeader title="ip taco" />
+      <PageHeader icon={<LogoIcon boxSize="2.5em" ml={5} />} title="ip taco" />
 
       <Flex alignItems="center" justifyContent="center">
         <Box bgColor="gray.100" borderRadius={4} p={4}>
@@ -51,7 +52,7 @@ export default function HomePage({
         <Tooltip label={!hasCopied ? 'Copy to clipboard' : ''}>
           <IconButton
             aria-label="Copy to clipboard"
-            colorScheme={hasCopied ? 'green' : 'orange'}
+            colorScheme={hasCopied ? 'green' : 'blue'}
             icon={hasCopied ? <CheckIcon /> : <CopyIcon />}
             ml={5}
             variant="outline"

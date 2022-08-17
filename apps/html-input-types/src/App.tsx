@@ -43,7 +43,7 @@ export default function App() {
   return (
     <PageWrapper maxWidth={450}>
       <PageHeader
-        icon={<LogoIcon boxSize="2em" ml={3} />}
+        icon={<LogoIcon boxSize="2em" ml={5} />}
         title="html input types"
       />
 
