@@ -68,7 +68,7 @@ export default async function handler(
   res.status(statusCode).json(resJson)
 }
 
-async function getIpAddressLookup(ipAddress: string) {
+function getIpAddressLookup(ipAddress: string) {
   const url = `http://ip-api.com/json/${ipAddress}`
   const params = {
     fields: 8438783,

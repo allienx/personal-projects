@@ -10,7 +10,8 @@ import {
   Tooltip,
   useClipboard,
 } from '@chakra-ui/react'
-import LogoIcon from 'components/Icons/LogoIcon'
+import IpAddressLookup from 'components/app/ip-lookup/ip-address-lookup'
+import LogoIcon from 'components/lib/icons/logo-icon'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { PageHeader, PageWrapper } from 'ui'
 
@@ -60,6 +61,8 @@ export default function HomePage({
           />
         </Tooltip>
       </Flex>
+
+      <IpAddressLookup boxProps={{ mt: 12 }} ipAddress={ipAddress} />
     </PageWrapper>
   )
 }
