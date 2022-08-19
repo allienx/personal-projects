@@ -4,7 +4,7 @@ export interface LogoIconProps extends IconProps {}
 
 export default function LogoIcon(props: LogoIconProps) {
   return (
-    <Icon viewBox="0 0  36 36" {...props}>
+    <Icon viewBox="0 0 36 36" {...props}>
       <path
         fill="#FFE8B6"
         d="M12 7C5.374 7 0 14.164 0 23h6v6h17.119c.564-1.854.881-3.877.881-6 0-8.836-5.373-16-12-16z"

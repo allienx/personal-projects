@@ -13,7 +13,7 @@ import {
 import IpAddressLookup from 'components/app/ip-lookup/ip-address-lookup'
 import LogoIcon from 'components/lib/icons/logo-icon'
 import type { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import { PageHeader, PageWrapper } from 'ui'
+import { AboutInfo, PageContent, PageFooter, PageHeader, PageWrapper } from 'ui'
 
 export interface IndexPageProps {
   ipAddress: string
@@ -43,26 +43,32 @@ export default function HomePage({
     <PageWrapper maxWidth={640}>
       <PageHeader icon={<LogoIcon boxSize="2.5em" ml={5} />} title="ip taco" />
 
-      <Flex alignItems="center" justifyContent="center">
-        <Box bgColor="gray.100" borderRadius={4} p={4}>
-          <Text fontFamily="mono" fontSize="2xl">
-            {ipAddress}
-          </Text>
-        </Box>
+      <PageContent>
+        <Flex alignItems="center" justifyContent="center">
+          <Box bgColor="gray.100" borderRadius={4} p={4}>
+            <Text fontFamily="mono" fontSize="2xl">
+              {ipAddress}
+            </Text>
+          </Box>
 
-        <Tooltip label={!hasCopied ? 'Copy to clipboard' : ''}>
-          <IconButton
-            aria-label="Copy to clipboard"
-            colorScheme={hasCopied ? 'green' : 'blue'}
-            icon={hasCopied ? <CheckIcon /> : <CopyIcon />}
-            ml={5}
-            variant="outline"
-            onClick={!hasCopied ? onCopy : undefined}
-          />
-        </Tooltip>
-      </Flex>
+          <Tooltip label={!hasCopied ? 'Copy to clipboard' : ''}>
+            <IconButton
+              aria-label="Copy to clipboard"
+              colorScheme={hasCopied ? 'green' : 'blue'}
+              icon={hasCopied ? <CheckIcon /> : <CopyIcon />}
+              ml={5}
+              variant="outline"
+              onClick={!hasCopied ? onCopy : undefined}
+            />
+          </Tooltip>
+        </Flex>
 
-      <IpAddressLookup boxProps={{ mt: 12 }} ipAddress={ipAddress} />
+        <IpAddressLookup boxProps={{ mt: 12 }} ipAddress={ipAddress} />
+      </PageContent>
+
+      <PageFooter>
+        <AboutInfo githubRepoUrl="https://github.com/allienx/personal-projects" />
+      </PageFooter>
     </PageWrapper>
   )
 }

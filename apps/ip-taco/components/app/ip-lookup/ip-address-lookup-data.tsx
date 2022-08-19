@@ -1,6 +1,16 @@
-import { Box, Table, TableContainer, Tbody, Td, Tr } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  Image,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Tr,
+} from '@chakra-ui/react'
 import type { BoxProps } from '@chakra-ui/react'
 import { IpApiResponse } from 'pages/api/ip-lookup'
+import { ReactNode } from 'react'
 
 export interface IpAddressLookupDataProps {
   boxProps?: BoxProps
@@ -10,17 +20,36 @@ export interface IpAddressLookupDataProps {
 type PropertyDef = {
   key: keyof IpApiResponse
   label: string
+  renderValue?: (data: IpApiResponse) => ReactNode
 }
 
 const propertyDefs: PropertyDef[] = [
   { key: 'isp', label: 'ISP' },
   { key: 'lat', label: 'Latitude' },
   { key: 'lon', label: 'Longitude' },
+  { key: 'timezone', label: 'Time Zone' },
   { key: 'city', label: 'City' },
   { key: 'region', label: 'Province' },
   { key: 'zip', label: 'Postal Code' },
-  { key: 'country', label: 'Country' },
-  { key: 'timezone', label: 'Time Zone' },
+  {
+    key: 'country',
+    label: 'Country',
+    renderValue: (data) => {
+      const { country, countryCode } = data
+
+      return (
+        <Flex alignItems="center">
+          <div>{country}</div>
+          <Image
+            alt={`${countryCode} flag`}
+            height="28px"
+            ml={4}
+            src={`https://flagpedia.net/data/flags/vector/${countryCode.toLowerCase()}.svg`}
+          />
+        </Flex>
+      )
+    },
+  },
 ]
 
 export default function IpAddressLookupData({
@@ -30,7 +59,7 @@ export default function IpAddressLookupData({
   return (
     <Box {...boxProps}>
       <TableContainer>
-        <Table fontSize="xl" variant="unstyled">
+        <Table fontSize={['md', 'xl']} variant="unstyled">
           <Tbody>
             {propertyDefs.map((def) => {
               return (
@@ -38,7 +67,11 @@ export default function IpAddressLookupData({
                   <Td fontWeight="bold" p={3} textAlign="right" width="45%">
                     {def.label}
                   </Td>
-                  <Td p={3}>{ipLookup[def.key]}</Td>
+                  <Td p={3}>
+                    {def.renderValue
+                      ? def.renderValue(ipLookup)
+                      : ipLookup[def.key]}
+                  </Td>
                 </Tr>
               )
             })}

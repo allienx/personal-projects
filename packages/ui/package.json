@@ -4,9 +4,12 @@
   "main": "./index.tsx",
   "types": "./index.tsx",
   "dependencies": {
+    "@chakra-ui/icons": "2.0.8",
     "@chakra-ui/react": "2.2.8",
     "@emotion/react": "11.10.0",
     "@emotion/styled": "11.10.0",
+    "framer-motion": "6.5.1",
+    "lodash": "4.17.21",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
