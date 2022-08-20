@@ -1,0 +1,8 @@
+[build]
+  base = "apps/ip-taco/"
+  publish = ".next"
+  command = "next build"
+
+[build.environment]
+  NETLIFY_USE_YARN = "true"
+  YARN_VERSION = '1.22.19'

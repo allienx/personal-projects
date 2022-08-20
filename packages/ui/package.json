@@ -1,8 +1,8 @@
 {
   "name": "ui",
   "version": "1.0.0",
-  "main": "./index.tsx",
-  "types": "./index.tsx",
+  "main": "./index.ts",
+  "types": "./index.ts",
   "dependencies": {
     "@chakra-ui/icons": "2.0.8",
     "@chakra-ui/react": "2.2.8",
