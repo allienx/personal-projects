@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import LogoIcon from 'src/components/Icons/LogoIcon'
-import { PageContent, PageHeader, PageWrapper } from 'ui'
+import { AboutInfo, PageContent, PageFooter, PageHeader, PageWrapper } from 'ui'
 
 const AvailableHtmlInputTypes = [
   'text',
@@ -103,6 +103,10 @@ export default function App() {
           </Box>
         </Box>
       </PageContent>
+
+      <PageFooter>
+        <AboutInfo githubRepoUrl="https://github.com/allienx/personal-projects/tree/main/apps/html-input-types" />
+      </PageFooter>
     </PageWrapper>
   )
 }

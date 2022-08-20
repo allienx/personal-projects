@@ -12,6 +12,10 @@ export interface SlotMachineSpinProps extends BoxProps {
   renderValue?: (val: string) => ReactNode
 }
 
+const SPIN_DURATION_MS = 1000
+const FIRST_SPIN_DELAY_MS = 5500
+const SPIN_DELAY_MS = 2000
+
 export default function SlotMachineSpin({
   options,
   values,
@@ -23,6 +27,7 @@ export default function SlotMachineSpin({
     return [...values]
   })
   const [isSpinning, setIsSpinning] = useState(false)
+  const [hasSpun, setHasSpun] = useState(false)
 
   const value = spinValues[0]
 
@@ -37,15 +42,22 @@ export default function SlotMachineSpin({
 
     setTimeout(() => {
       setIsSpinning(false)
-    }, 1000)
+    }, SPIN_DURATION_MS)
   }
 
   // Automatically start spinning every 1.5 seconds.
   useEffect(() => {
     if (!isSpinning) {
-      setTimeout(() => {
-        startSpinning()
-      }, 1500)
+      if (!hasSpun) {
+        setHasSpun(true)
+      }
+
+      setTimeout(
+        () => {
+          startSpinning()
+        },
+        !hasSpun ? FIRST_SPIN_DELAY_MS : SPIN_DELAY_MS,
+      )
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

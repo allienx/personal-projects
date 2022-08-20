@@ -19,13 +19,21 @@ export interface IndexPageProps {
   ipAddress: string
 }
 
+// The IP address can be a string with multiple IPs joined by a comma.
+// e.g. '77.32.234.23, 101.32.0.109'
+const getFirstIpAddress = (ip: string) => {
+  return ip.split(',').map((str) => str.trim())[0]
+}
+
 export const getServerSideProps: GetServerSideProps<IndexPageProps> = async (
   context,
 ) => {
   const { req } = context
   const ipAddresses =
     req.headers['x-forwarded-for'] || req.socket.remoteAddress || ''
-  const ipAddress = Array.isArray(ipAddresses) ? ipAddresses[0] : ipAddresses
+  const ipAddress = Array.isArray(ipAddresses)
+    ? getFirstIpAddress(ipAddresses[0])
+    : getFirstIpAddress(ipAddresses)
 
   return {
     props: {
