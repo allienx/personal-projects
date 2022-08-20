@@ -23,9 +23,9 @@ export const getServerSideProps: GetServerSideProps<IndexPageProps> = async (
   context,
 ) => {
   const { req } = context
-  const ipAddress = (req.headers['x-forwarded-for'] ||
-    req.socket.remoteAddress ||
-    '') as string
+  const ipAddresses =
+    req.headers['x-forwarded-for'] || req.socket.remoteAddress || ''
+  const ipAddress = Array.isArray(ipAddresses) ? ipAddresses[0] : ipAddresses
 
   return {
     props: {
@@ -67,7 +67,7 @@ export default function HomePage({
       </PageContent>
 
       <PageFooter>
-        <AboutInfo githubRepoUrl="https://github.com/allienx/personal-projects" />
+        <AboutInfo githubRepoUrl="https://github.com/allienx/personal-projects/tree/main/apps/ip-taco" />
       </PageFooter>
     </PageWrapper>
   )
