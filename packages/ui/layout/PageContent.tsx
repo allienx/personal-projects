@@ -1,11 +1,11 @@
 import { Box, BoxProps } from '@chakra-ui/react'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
-interface PageContentProps extends BoxProps {
+export interface PageContentProps extends BoxProps {
   children: ReactNode
 }
 
-export default function MainContent({ children, ...props }: PageContentProps) {
+export default function PageContent({ children, ...props }: PageContentProps) {
   return (
     <Box as="main" flexGrow={1} {...props}>
       {children}

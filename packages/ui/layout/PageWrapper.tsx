@@ -1,11 +1,14 @@
-import { Box, BoxProps } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { Box, BoxProps } from '@chakra-ui/react'
+import type { ReactNode } from 'react'
 
 interface PageWrapperProps extends BoxProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
-export default function PageWrapper({ children, ...boxProps }: PageWrapperProps) {
+export default function PageWrapper({
+  children,
+  ...boxProps
+}: PageWrapperProps) {
   return (
     <Box
       display="flex"
@@ -17,5 +20,5 @@ export default function PageWrapper({ children, ...boxProps }: PageWrapperProps)
     >
       {children}
     </Box>
-  );
+  )
 }
