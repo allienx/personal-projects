@@ -71,12 +71,7 @@ export default function AboutInfo({ boxProps, githubRepoUrl }: AboutInfoProps) {
         />
       </Box>
 
-      <Box
-        as="div"
-        borderLeft={`2px solid ${theme.colors.gray['800']}`}
-        pl={5}
-        width="150px"
-      >
+      <Box as="div" borderLeft={`2px solid ${theme.colors.gray['800']}`} pl={5}>
         <NerdLink
           isExternal
           color="blue.500"
