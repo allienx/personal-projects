@@ -105,7 +105,10 @@ export default function App() {
       </PageContent>
 
       <PageFooter>
-        <AboutInfo githubRepoUrl="https://github.com/allienx/personal-projects/tree/main/apps/html-input-types" />
+        <AboutInfo
+          githubRepoUrl="https://github.com/allienx/personal-projects/tree/main/apps/html-input-types"
+          initialEmoji="🔤"
+        />
       </PageFooter>
     </PageWrapper>
   )

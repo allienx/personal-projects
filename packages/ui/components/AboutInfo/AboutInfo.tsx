@@ -10,40 +10,50 @@ import SlotMachineSpin from '../SlotMachineSpin/SlotMachineSpin'
 export interface AboutInfoProps {
   boxProps?: BoxProps
   githubRepoUrl: string
+  initialEmoji?: string
 }
 
 const madeWithEmojis = [
-  '❤️',
-  '🫀',
   '⚛️',
   '👾',
   '💻',
   '🎯',
+  '🚀',
   '☕',
   '🌮',
+  '🥑',
   '⚡',
   '🔥',
+  '🌊',
   '🏎️',
   '🎉',
-  '💦',
+  '🤓',
   '😂',
+  '👻',
+  '🤖',
   '🕺',
   '🙇',
+  '🧘',
+  '🧑‍💻',
   '💭',
   '🐶',
   '🦖',
   '🎨',
-  '🧼',
+  '🧪',
 ]
 
-export default function AboutInfo({ boxProps, githubRepoUrl }: AboutInfoProps) {
+export default function AboutInfo({
+  boxProps,
+  githubRepoUrl,
+  initialEmoji = '❤️',
+}: AboutInfoProps) {
   const theme = useTheme()
 
   const shuffledMadeWithEmojis = useMemo(() => {
-    const heart = madeWithEmojis[0]
+    const emojis = madeWithEmojis.filter((emj) => emj !== initialEmoji)
 
-    return [heart, ...shuffle(drop(madeWithEmojis))]
-  }, [])
+    return [initialEmoji, ...shuffle(drop(emojis))]
+  }, [initialEmoji])
 
   return (
     <Box

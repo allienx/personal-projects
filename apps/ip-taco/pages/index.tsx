@@ -75,7 +75,10 @@ export default function HomePage({
       </PageContent>
 
       <PageFooter>
-        <AboutInfo githubRepoUrl="https://github.com/allienx/personal-projects/tree/main/apps/ip-taco" />
+        <AboutInfo
+          githubRepoUrl="https://github.com/allienx/personal-projects/tree/main/apps/ip-taco"
+          initialEmoji="🌮"
+        />
       </PageFooter>
     </PageWrapper>
   )
