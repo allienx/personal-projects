@@ -14,12 +14,12 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query'
-import { useCallback, useContext } from 'react'
+import { useCallback } from 'react'
+import useOauthState from 'react-oauth/src/use-oauth-state'
 import getAppointmentSlots from 'src/api/getAppointmentSlots'
 import { AppointmentSlotsApiResponse } from 'src/api/types/AppointmentSlotsApi'
 import { AppointmentLocation } from 'src/api/types/LocationsApi'
 import AppointmentSlotList from 'src/components/app/AppointmentSlotList/AppointmentSlotList'
-import IdentityContext from 'src/components/app/IdentityContext/IdentityContext'
 import LoadingSpinner from 'src/components/app/Spinner/LoadingSpinner'
 
 interface AppointmentSlotListDataProps {
@@ -29,7 +29,7 @@ interface AppointmentSlotListDataProps {
 export default function AppointmentSlotListData({
   appointmentLocation,
 }: AppointmentSlotListDataProps) {
-  const { logout } = useContext(IdentityContext)
+  const { logout } = useOauthState()
 
   const queryFn = useCallback(async () => {
     return appointmentLocation

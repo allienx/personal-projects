@@ -1,9 +1,7 @@
 {
   "extends": "tsconfig-react/base.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "module": "ESNext",
-    "types": ["vite/client"]
+    "baseUrl": "."
   },
   "include": ["src"]
 }

@@ -1,38 +1,40 @@
+import { ChakraProvider } from '@chakra-ui/react'
 import '@fontsource/jetbrains-mono/400.css'
 import '@fontsource/jetbrains-mono/700.css'
-
-import { Auth0Provider } from '@auth0/auth0-react'
-import { ChakraProvider } from '@chakra-ui/react'
 import { QueryClientProvider } from '@tanstack/react-query'
-import React from 'react'
 import { createRoot } from 'react-dom/client'
-import IdentityGuardAndProvider from 'src/components/app/IdentityContext/IdentityGuardAndProvider'
+import { AwsCognitoDefinition } from 'react-oauth/src/definitions/aws-cognito-definition'
+import { OauthDefinitionType } from 'react-oauth/src/definitions/oauth-definition-type'
+import OauthProvider from 'react-oauth/src/oauth-provider'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import createQueryClient from 'src/config/createQueryClient'
-import { Env } from 'src/config/Env'
+import { EnvVars } from 'src/config/env-vars'
 import { theme } from 'src/config/theme/theme'
-import App from './App'
+import appRoutes from 'src/pages/_app-routes'
 
 const queryClient = createQueryClient()
 
 const container = document.getElementById('app')
 const root = createRoot(container!)
 
+const oauthDefinition: AwsCognitoDefinition = {
+  type: OauthDefinitionType.AwsCognito,
+  config: {
+    clientId: EnvVars.OauthClientId,
+    redirectUrl: `${window.location.origin}/auth`,
+    responseType: 'code',
+    userPoolUrl: EnvVars.OauthBaseUrl,
+  },
+}
+
+const router = createBrowserRouter(appRoutes)
+
 root.render(
-  <React.StrictMode>
-    <ChakraProvider resetCSS theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <Auth0Provider
-          useRefreshTokens
-          cacheLocation="localstorage"
-          clientId={Env.Auth0ClientId}
-          domain={Env.Auth0Domain}
-          redirectUri={window.location.origin}
-        >
-          <IdentityGuardAndProvider>
-            <App />
-          </IdentityGuardAndProvider>
-        </Auth0Provider>
-      </QueryClientProvider>
-    </ChakraProvider>
-  </React.StrictMode>,
+  <ChakraProvider resetCSS theme={theme}>
+    <QueryClientProvider client={queryClient}>
+      <OauthProvider definition={oauthDefinition}>
+        <RouterProvider router={router} />
+      </OauthProvider>
+    </QueryClientProvider>
+  </ChakraProvider>,
 )

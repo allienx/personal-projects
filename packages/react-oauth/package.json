@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "name": "react-oauth",
+  "version": "0.0.0",
+  "dependencies": {
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
+    "eslint": "8.24.0",
+    "eslint-config-react-ts": "*",
+    "prettier": "2.7.1",
+    "tsconfig-react": "*",
+    "typescript": "4.8.3"
+  }
+}

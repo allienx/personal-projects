@@ -1,0 +1,6 @@
+export { default as AboutInfo } from './components/AboutInfo/AboutInfo'
+export { default as SlotMachineSpin } from './components/SlotMachineSpin/SlotMachineSpin'
+export { default as PageContent } from './layout/PageContent'
+export { default as PageFooter } from './layout/PageFooter'
+export { default as PageHeader } from './layout/PageHeader'
+export { default as PageWrapper } from './layout/PageWrapper'
