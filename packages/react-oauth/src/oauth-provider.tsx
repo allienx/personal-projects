@@ -12,16 +12,24 @@ export interface OauthProviderProps {
 }
 
 const initialAuthStorageState = authStorage.getData()
+const isAccessTokenExpired =
+  !!initialAuthStorageState?.atk &&
+  !!initialAuthStorageState.exp &&
+  new Date() > new Date(initialAuthStorageState.exp)
+const hasRefreshToken = false
 
 export default function OauthProvider({
   definition,
   loader,
   children,
 }: OauthProviderProps) {
-  const [authState, setAuthState] = useState(initialAuthStorageState)
+  const [authState, setAuthState] = useState(
+    !isAccessTokenExpired ? initialAuthStorageState : null,
+  )
 
-  const { isAccessTokenExpired, hasRefreshToken } = useOauthRefreshToken({
-    authState,
+  useOauthRefreshToken({
+    isAccessTokenExpired,
+    hasRefreshToken,
     setAuthState,
   })
 

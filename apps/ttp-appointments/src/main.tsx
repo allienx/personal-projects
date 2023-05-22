@@ -10,6 +10,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import createQueryClient from 'src/config/createQueryClient'
 import { EnvVars } from 'src/config/env-vars'
 import { theme } from 'src/config/theme/theme'
+import HttpClientInitializer from 'src/http/http-client-initializer'
 import appRoutes from 'src/pages/_app-routes'
 
 const queryClient = createQueryClient()
@@ -33,6 +34,8 @@ root.render(
   <ChakraProvider resetCSS theme={theme}>
     <QueryClientProvider client={queryClient}>
       <OauthProvider definition={oauthDefinition}>
+        <HttpClientInitializer />
+
         <RouterProvider router={router} />
       </OauthProvider>
     </QueryClientProvider>

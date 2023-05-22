@@ -3,7 +3,7 @@ import { OauthDefinition } from './definitions/oauth-definition'
 import authStorage, { AuthStorageState } from './storage/auth-storage'
 import useOauthState from './use-oauth-state'
 
-export interface UseOauthGetTokenOpts {
+interface UseOauthGetTokenOpts {
   authorizationCode: string
 }
 

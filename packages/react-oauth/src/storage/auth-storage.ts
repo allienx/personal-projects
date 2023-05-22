@@ -1,4 +1,5 @@
 import BrowserStorage from './browser-storage'
+import hasStorage from './has-storage'
 
 export interface AuthStorageState {
   atk: string
@@ -12,7 +13,9 @@ class AuthStorage {
   browserStorage: BrowserStorage
 
   constructor() {
-    this.browserStorage = new BrowserStorage(localStorage)
+    this.browserStorage = new BrowserStorage(
+      hasStorage('localStorage') ? localStorage : sessionStorage,
+    )
   }
 
   getData(): AuthStorageState | null {

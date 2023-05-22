@@ -1,10 +1,26 @@
-import { Button, Link, Text } from '@chakra-ui/react'
+import { Button, Link } from '@chakra-ui/react'
+import { useCallback, useState } from 'react'
 import useOauthState from 'react-oauth/src/use-oauth-state'
 import LogoIcon from 'src/components/app/Icons/LogoIcon'
+import { TtpLocation } from 'src/http/ttp/ttp-location'
+import TtpLocationSearch from 'src/pages/home/ttp-location-search'
+import ttpStorage from 'src/utils/storage/ttp-storage'
 import { AboutInfo, PageContent, PageFooter, PageHeader, PageWrapper } from 'ui'
 
 export default function HomePage() {
   const { authState, loginUrl } = useOauthState()
+
+  const [ttpLocation, setTtpLocation] = useState<TtpLocation | null>(() => {
+    return ttpStorage.getRecentLocations()[0] || null
+  })
+
+  console.log('ttpLocation', ttpLocation)
+
+  const handleAppointmentLocationChange = useCallback((loc: TtpLocation) => {
+    ttpStorage.saveRecentLocation(loc)
+
+    setTtpLocation(loc)
+  }, [])
 
   return (
     <PageWrapper maxWidth={450}>
@@ -15,7 +31,9 @@ export default function HomePage() {
 
       {authState?.atk ? (
         <PageContent>
-          <Text>Logged In!</Text>
+          <TtpLocationSearch
+            onAppointmentLocationChange={handleAppointmentLocationChange}
+          />
         </PageContent>
       ) : (
         <PageContent alignItems="center" display="flex" justifyContent="center">

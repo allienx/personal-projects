@@ -1,19 +1,17 @@
 import { Dispatch, SetStateAction, useEffect } from 'react'
 import authStorage, { AuthStorageState } from './storage/auth-storage'
 
-export interface UseOauthRefreshTokenOpts {
-  authState: AuthStorageState | null
+interface UseOauthRefreshTokenOpts {
+  isAccessTokenExpired: boolean
+  hasRefreshToken: boolean
   setAuthState: Dispatch<SetStateAction<AuthStorageState | null>>
 }
 
 export default function useOauthRefreshToken({
-  authState,
+  isAccessTokenExpired,
+  hasRefreshToken,
   setAuthState,
 }: UseOauthRefreshTokenOpts) {
-  const { atk, exp } = authState || {}
-  const isAccessTokenExpired = !!atk && !!exp && new Date() > new Date(exp)
-  const hasRefreshToken = false
-
   // TODO: support using refresh token if present
   useEffect(() => {
     if (isAccessTokenExpired) {

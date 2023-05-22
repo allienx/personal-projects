@@ -19,21 +19,23 @@ import {
 import Fuse from 'fuse.js'
 import { take } from 'lodash'
 import { useMemo, useRef, useState } from 'react'
-import { AppointmentLocation } from 'src/api/types/LocationsApi'
-import useAppointmentLocationsQuery from 'src/api/useAppointmentLocationsQuery'
 import LoadingSpinner from 'src/components/app/Spinner/LoadingSpinner'
-import useDetachedAutocompleteKeyboardEvents from './useDetachedAutocompleteKeyboardEvents'
+import TtpApi from 'src/http/ttp/ttp-api'
+import { TtpApiListResponse } from 'src/http/ttp/ttp-api-list-response'
+import { TtpLocation } from 'src/http/ttp/ttp-location'
+import useHttpQuery from 'src/http/use-http-query'
+import useSearchKeyboardEvents from 'src/pages/home/use-search-keyboard-events'
 
-interface LocationSearchProps extends ButtonProps {
-  onAppointmentLocationChange: (apptLocation: AppointmentLocation) => void
+interface TtpLocationSearchProps extends ButtonProps {
+  onAppointmentLocationChange: (loc: TtpLocation) => void
 }
 
 const isAppleDevice = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform)
 
-export default function AppointmentLocationSearch({
+export default function TtpLocationSearch({
   onAppointmentLocationChange,
   ...props
-}: LocationSearchProps) {
+}: TtpLocationSearchProps) {
   const modalSize = useBreakpointValue({ base: 'full', md: 'md' })
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -51,20 +53,27 @@ export default function AppointmentLocationSearch({
     status: 'idle',
   })
 
-  useDetachedAutocompleteKeyboardEvents({ isOpen, onOpen, onClose })
+  useSearchKeyboardEvents({ isOpen, onOpen, onClose })
 
-  const { appointmentLocationsQuery, appointmentLocations } =
-    useAppointmentLocationsQuery({
-      enabled: isOpen,
-    })
+  const ttpLocationsQuery = useHttpQuery<TtpApiListResponse<TtpLocation>>({
+    url: TtpApi.locationsUrl(),
+    queryOpts: {
+      cacheTime: Infinity,
+      staleTime: Infinity,
+      refetchOnMount: false,
+      refetchOnWindowFocus: 'always',
+    },
+  })
 
   const fuse = useMemo(() => {
-    return new Fuse(appointmentLocations || [], {
+    const ttpLocations = ttpLocationsQuery.data?.records || []
+
+    return new Fuse(ttpLocations, {
       keys: ['name', 'nameShort', 'city', 'province'],
       includeScore: true,
       minMatchCharLength: 2,
     })
-  }, [appointmentLocations])
+  }, [ttpLocationsQuery.data?.records])
 
   const autocomplete = useMemo(() => {
     return createAutocomplete({
@@ -81,15 +90,13 @@ export default function AppointmentLocationSearch({
               return take(matches, 10)
             },
             onSelect: (params) => {
-              const { item: appointmentLocation } = params.item
+              const { item: ttpLocation } = params.item
 
-              if (!appointmentLocation) {
+              if (!ttpLocation) {
                 return
               }
 
-              onAppointmentLocationChange(
-                appointmentLocation as AppointmentLocation,
-              )
+              onAppointmentLocationChange(ttpLocation as TtpLocation)
               onClose()
             },
           },
@@ -136,7 +143,7 @@ export default function AppointmentLocationSearch({
               ref={formRef}
               {...autocomplete.getFormProps({ inputElement: inputRef.current })}
             >
-              {appointmentLocationsQuery.isLoading ? (
+              {ttpLocationsQuery.isLoading ? (
                 <LoadingSpinner size="sm" thickness="2px" width="24px" />
               ) : (
                 <SearchIcon boxSize="1.25em" color="teal" />
@@ -145,6 +152,7 @@ export default function AppointmentLocationSearch({
               {/* @ts-ignore */}
               <Input
                 _focus={{ outline: 'none' }}
+                _focusVisible={{ outline: 'none' }}
                 border="none"
                 ml={4}
                 outline="none"
@@ -185,6 +193,7 @@ export default function AppointmentLocationSearch({
                       borderTopColor="gray.200"
                       borderTopWidth="1px"
                       justifyContent="center"
+                      key="empty-state"
                       mt={2}
                       pt={4}
                     >
@@ -193,12 +202,13 @@ export default function AppointmentLocationSearch({
                   ) : null
                 }
 
-                if (appointmentLocationsQuery.isLoading) {
+                if (ttpLocationsQuery.isLoading) {
                   return (
                     <Flex
                       borderTopColor="gray.200"
                       borderTopWidth="1px"
                       justifyContent="center"
+                      key="loading-state"
                       mt={2}
                       pt={4}
                     >

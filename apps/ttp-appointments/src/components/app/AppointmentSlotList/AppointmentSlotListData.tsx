@@ -114,7 +114,7 @@ export default function AppointmentSlotListData({
         {!appointmentSlotsQuery.isLoading && appointmentSlotsQuery.isError && (
           <Alert status="error">
             <AlertIcon />
-            There was an error loading the appointments.
+            There was an error loading the slots.
           </Alert>
         )}
 

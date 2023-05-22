@@ -15,5 +15,5 @@ export interface AppointmentLocation {
 
 export interface AppointmentLocationsApiResponse {
   code: ResponseCode
-  data: AppointmentLocation[]
+  records: AppointmentLocation[]
 }

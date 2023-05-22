@@ -1,16 +1,16 @@
 import { useEffect } from 'react'
 
-export interface UseDetachedAutocompleteKeyboardEventsProps {
+export interface UseSearchKeyboardEventsProps {
   isOpen: boolean
   onClose: () => void
   onOpen: () => void
 }
 
-export default function useDetachedAutocompleteKeyboardEvents({
+export default function useSearchKeyboardEvents({
   isOpen,
   onClose,
   onOpen,
-}: UseDetachedAutocompleteKeyboardEventsProps) {
+}: UseSearchKeyboardEventsProps) {
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape' && isOpen) {
