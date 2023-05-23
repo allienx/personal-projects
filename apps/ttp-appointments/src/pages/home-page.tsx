@@ -4,6 +4,7 @@ import useOauthState from 'react-oauth/src/use-oauth-state'
 import LogoIcon from 'src/components/app/Icons/LogoIcon'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
 import TtpLocationSearch from 'src/pages/home/ttp-location-search'
+import TtpSlotListWrapper from 'src/pages/home/ttp-slot-list-wrapper'
 import ttpStorage from 'src/utils/storage/ttp-storage'
 import { AboutInfo, PageContent, PageFooter, PageHeader, PageWrapper } from 'ui'
 
@@ -13,8 +14,6 @@ export default function HomePage() {
   const [ttpLocation, setTtpLocation] = useState<TtpLocation | null>(() => {
     return ttpStorage.getRecentLocations()[0] || null
   })
-
-  console.log('ttpLocation', ttpLocation)
 
   const handleAppointmentLocationChange = useCallback((loc: TtpLocation) => {
     ttpStorage.saveRecentLocation(loc)
@@ -34,6 +33,8 @@ export default function HomePage() {
           <TtpLocationSearch
             onAppointmentLocationChange={handleAppointmentLocationChange}
           />
+
+          <TtpSlotListWrapper ttpLocation={ttpLocation} />
         </PageContent>
       ) : (
         <PageContent alignItems="center" display="flex" justifyContent="center">

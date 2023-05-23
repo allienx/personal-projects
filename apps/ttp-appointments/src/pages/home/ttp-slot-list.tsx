@@ -8,25 +8,30 @@ import {
   Link,
   Text,
 } from '@chakra-ui/react'
+import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz'
 import format from 'date-fns/format'
-import formatISO from 'date-fns/formatISO'
 import parseISO from 'date-fns/parseISO'
 import groupBy from 'lodash/groupBy'
-import { AppointmentSlot } from 'src/api/types/AppointmentSlotsApi'
+import { TtpLocation } from 'src/http/ttp/ttp-location'
+import { TtpSlot } from 'src/http/ttp/ttp-slot'
 
-interface AppointmentSlotListProps extends BoxProps {
-  slots: AppointmentSlot[]
+interface TtpSlotListProps extends BoxProps {
+  ttpLocation: TtpLocation
+  ttpSlots: TtpSlot[]
 }
 
-export default function AppointmentSlotList({
-  slots,
+export default function TtpSlotList({
+  ttpLocation,
+  ttpSlots,
   ...props
-}: AppointmentSlotListProps) {
-  const slotsByDay = groupBy(slots, (slot) => {
-    return formatISO(new Date(slot.startTime), { representation: 'date' })
+}: TtpSlotListProps) {
+  const slotsByDay = groupBy(ttpSlots, (slot) => {
+    const zonedDate = zonedTimeToUtc(slot.startTimestamp, ttpLocation.tzData)
+
+    return formatInTimeZone(zonedDate, ttpLocation.tzData, 'yyyy-MM-dd')
   })
 
-  if (slots.length === 0) {
+  if (ttpSlots.length === 0) {
     return (
       <Box {...props}>
         <Text textAlign="center">No available appointments.</Text>
@@ -37,7 +42,7 @@ export default function AppointmentSlotList({
   return (
     <Box {...props}>
       {Object.keys(slotsByDay).map((isoDateStr, index) => {
-        const slotsForDay = slotsByDay[isoDateStr] as AppointmentSlot[]
+        const slotsForDay = slotsByDay[isoDateStr]
 
         const date = parseISO(isoDateStr)
         const monthDayStr = format(date, 'EEEE, LLL d')
@@ -66,22 +71,30 @@ export default function AppointmentSlotList({
 
             <Box mt={4}>
               {slotsForDay.map((slot) => {
-                const { startTime, durationMins } = slot
+                const { startTimestamp, duration } = slot
 
-                const timeStr = format(new Date(startTime), 'p')
+                const zonedDate = zonedTimeToUtc(
+                  startTimestamp,
+                  ttpLocation.tzData,
+                )
+                const timeStr = formatInTimeZone(
+                  zonedDate,
+                  ttpLocation.tzData,
+                  'p',
+                )
 
                 return (
                   <Flex
                     _hover={{ background: 'gray.50', borderRadius: 4 }}
                     alignItems="center"
-                    key={startTime}
+                    key={startTimestamp}
                     pb={2}
                     pl={8}
                     pt={2}
                   >
                     <Text width={75}>{timeStr}</Text>
                     <Badge colorScheme="teal" ml={4} variant="outline">
-                      {durationMins} mins
+                      {duration} mins
                     </Badge>
                   </Flex>
                 )
