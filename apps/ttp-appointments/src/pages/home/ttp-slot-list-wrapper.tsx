@@ -14,7 +14,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import useOauthState from 'react-oauth/src/use-oauth-state'
-import LoadingSpinner from 'src/components/app/Spinner/LoadingSpinner'
+import LoadingSpinner from 'src/components/spinner/loading-spinner'
 import TtpApi from 'src/http/ttp/ttp-api'
 import { TtpApiListResponse } from 'src/http/ttp/ttp-api-list-response'
 import { TtpLocation } from 'src/http/ttp/ttp-location'

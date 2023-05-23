@@ -19,7 +19,7 @@ import {
 import Fuse from 'fuse.js'
 import { take } from 'lodash'
 import { useMemo, useRef, useState } from 'react'
-import LoadingSpinner from 'src/components/app/Spinner/LoadingSpinner'
+import LoadingSpinner from 'src/components/spinner/loading-spinner'
 import TtpApi from 'src/http/ttp/ttp-api'
 import { TtpApiListResponse } from 'src/http/ttp/ttp-api-list-response'
 import { TtpLocation } from 'src/http/ttp/ttp-location'

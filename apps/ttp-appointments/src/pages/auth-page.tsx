@@ -2,7 +2,7 @@ import { Center } from '@chakra-ui/react'
 import useOauthGetToken from 'react-oauth/src/use-oauth-get-token'
 import useOauthState from 'react-oauth/src/use-oauth-state'
 import { Navigate, useSearchParams } from 'react-router-dom'
-import LoadingSpinner from 'src/components/app/Spinner/LoadingSpinner'
+import LoadingSpinner from 'src/components/spinner/loading-spinner'
 
 export default function AuthPage() {
   const [searchParams] = useSearchParams()

@@ -7,7 +7,7 @@ import { AwsCognitoDefinition } from 'react-oauth/src/definitions/aws-cognito-de
 import { OauthDefinitionType } from 'react-oauth/src/definitions/oauth-definition-type'
 import OauthProvider from 'react-oauth/src/oauth-provider'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import createQueryClient from 'src/config/createQueryClient'
+import createQueryClient from 'src/config/create-query-client'
 import { EnvVars } from 'src/config/env-vars'
 import { theme } from 'src/config/theme/theme'
 import HttpClientInitializer from 'src/http/http-client-initializer'

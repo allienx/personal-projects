@@ -1,7 +1,7 @@
 import { Button, Link } from '@chakra-ui/react'
 import { useCallback, useState } from 'react'
 import useOauthState from 'react-oauth/src/use-oauth-state'
-import LogoIcon from 'src/components/app/Icons/LogoIcon'
+import LogoIcon from 'src/components/icons/logo-icon'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
 import TtpLocationSearch from 'src/pages/home/ttp-location-search'
 import TtpSlotListWrapper from 'src/pages/home/ttp-slot-list-wrapper'
