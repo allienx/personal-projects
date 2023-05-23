@@ -6,6 +6,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "typecheck": "tsc -p tsconfig.json --noEmit --pretty",
     "gen:theme-typings": "chakra-cli tokens config/theme/theme.ts",
     "postinstall": "yarn run gen:theme-typings"
   },
