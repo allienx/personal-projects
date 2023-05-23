@@ -6,3 +6,8 @@
 [build.environment]
   NETLIFY_USE_YARN = "true"
   YARN_VERSION = '3.2.3'
+
+[[redirects]]
+from = "/*"
+to = "/"
+status = 200
