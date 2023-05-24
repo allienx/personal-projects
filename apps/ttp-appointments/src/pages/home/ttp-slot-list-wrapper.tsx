@@ -46,7 +46,7 @@ export default function TtpSlotListWrapper({
       <Flex alignItems="center" justifyContent="space-between" mt={4}>
         <Tag
           as="div"
-          bgColor="brandRed"
+          colorScheme="teal"
           px={4}
           py={2}
           size="lg"

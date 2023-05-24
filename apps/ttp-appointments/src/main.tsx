@@ -1,4 +1,4 @@
-import { ChakraProvider } from '@chakra-ui/react'
+import { Center, ChakraProvider } from '@chakra-ui/react'
 import '@fontsource/jetbrains-mono/400.css'
 import '@fontsource/jetbrains-mono/700.css'
 import { QueryClientProvider } from '@tanstack/react-query'
@@ -7,6 +7,7 @@ import { AwsCognitoDefinition } from 'react-oauth/src/definitions/aws-cognito-de
 import { OauthDefinitionType } from 'react-oauth/src/definitions/oauth-definition-type'
 import OauthProvider from 'react-oauth/src/oauth-provider'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import LoadingSpinner from 'src/components/spinner/loading-spinner'
 import createQueryClient from 'src/config/create-query-client'
 import { EnvVars } from 'src/config/env-vars'
 import { theme } from 'src/config/theme/theme'
@@ -33,7 +34,14 @@ const router = createBrowserRouter(appRoutes)
 root.render(
   <ChakraProvider resetCSS theme={theme}>
     <QueryClientProvider client={queryClient}>
-      <OauthProvider definition={oauthDefinition}>
+      <OauthProvider
+        definition={oauthDefinition}
+        loader={
+          <Center height="100vh">
+            <LoadingSpinner />
+          </Center>
+        }
+      >
         <HttpClientInitializer />
 
         <RouterProvider router={router} />

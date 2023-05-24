@@ -1948,15 +1948,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@netlify/functions@npm:1.2.0":
-  version: 1.2.0
-  resolution: "@netlify/functions@npm:1.2.0"
-  dependencies:
-    is-promise: ^4.0.0
-  checksum: 190187fd97314a20b98b6d65b37fd325df350ae683f5cf17ec73364604094b6c7150eb5d9524b4814e99a423ea67f5ee98746cd9a347a45586478e246007f31c
-  languageName: node
-  linkType: hard
-
 "@next/env@npm:12.3.1":
   version: 12.3.1
   resolution: "@next/env@npm:12.3.1"
@@ -4114,6 +4105,7 @@ __metadata:
     eslint-plugin-jsx-a11y: 6.6.1
     eslint-plugin-react: 7.31.8
     eslint-plugin-react-hooks: 4.6.0
+    prettier: 2.7.1
     typescript: 4.8.3
   languageName: unknown
   linkType: soft
@@ -5304,13 +5296,6 @@ __metadata:
   version: 3.0.3
   resolution: "is-path-inside@npm:3.0.3"
   checksum: abd50f06186a052b349c15e55b182326f1936c89a78bf6c8f2b707412517c097ce04bc49a0ca221787bc44e1049f51f09a2ffb63d22899051988d3a618ba13e9
-  languageName: node
-  linkType: hard
-
-"is-promise@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "is-promise@npm:4.0.0"
-  checksum: 0b46517ad47b00b6358fd6553c83ec1f6ba9acd7ffb3d30a0bf519c5c69e7147c132430452351b8a9fc198f8dd6c4f76f8e6f5a7f100f8c77d57d9e0f4261a8a
   languageName: node
   linkType: hard
 
@@ -7327,7 +7312,6 @@ __metadata:
     "@emotion/react": 11.10.4
     "@emotion/styled": 11.10.4
     "@fontsource/jetbrains-mono": 4.5.10
-    "@netlify/functions": 1.2.0
     "@tanstack/react-query": 4.3.9
     "@types/node": 18.7.19
     "@types/react": 18.0.21

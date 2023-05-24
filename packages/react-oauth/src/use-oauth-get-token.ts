@@ -3,6 +3,21 @@ import { OauthDefinition } from './definitions/oauth-definition'
 import authStorage, { AuthStorageState } from './storage/auth-storage'
 import useOauthState from './use-oauth-state'
 
+export enum OauthGetTokenStatus {
+  GetTokenSuccess = 'refresh_token_success',
+  GetTokenError = 'refresh_token_error',
+}
+
+export type OauthGetTokenResult =
+  | {
+      status: OauthGetTokenStatus.GetTokenSuccess
+      data: AuthStorageState
+    }
+  | {
+      status: OauthGetTokenStatus.GetTokenError
+      err: Error
+    }
+
 interface UseOauthGetTokenOpts {
   authorizationCode: string
 }
@@ -15,20 +30,22 @@ export default function useOauthGetToken({
   const [httpError, setHttpError] = useState<Error | null>(null)
 
   useEffect(() => {
-    getToken({ tokenUrl, authorizationCode, definition }).then((result) => {
-      // eslint-disable-next-line no-console
-      console.log(
-        result.error
-          ? 'Encountered error during token fetching.'
-          : 'Finished token fetching.',
-      )
+    getAccessToken({ tokenUrl, authorizationCode, definition }).then(
+      (result) => {
+        switch (result.status) {
+          case OauthGetTokenStatus.GetTokenSuccess:
+            setAuthState(result.data)
+            break
 
-      if (result.error) {
-        setHttpError(result.data as Error)
-      } else {
-        setAuthState(result.data as AuthStorageState)
-      }
-    })
+          case OauthGetTokenStatus.GetTokenError:
+            setHttpError(result.err)
+            break
+
+          default:
+            break
+        }
+      },
+    )
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -38,7 +55,7 @@ export default function useOauthGetToken({
   }
 }
 
-async function getToken({
+async function getAccessToken({
   tokenUrl,
   authorizationCode,
   definition,
@@ -46,7 +63,7 @@ async function getToken({
   tokenUrl: string
   authorizationCode: string
   definition: OauthDefinition
-}) {
+}): Promise<OauthGetTokenResult> {
   try {
     const res = await fetch(tokenUrl, {
       method: 'POST',
@@ -57,7 +74,6 @@ async function getToken({
         redirect_uri: definition.config.redirectUrl,
       }),
     })
-
     const data = await res.json()
 
     if (!res.ok) {
@@ -67,8 +83,8 @@ async function getToken({
       )
 
       return {
-        error: true,
-        data: err,
+        status: OauthGetTokenStatus.GetTokenError,
+        err,
       }
     }
 
@@ -83,13 +99,13 @@ async function getToken({
     authStorage.saveData(state)
 
     return {
-      error: false,
+      status: OauthGetTokenStatus.GetTokenSuccess,
       data: state,
     }
   } catch (err: any) {
     return {
-      error: true,
-      data: err as Error,
+      status: OauthGetTokenStatus.GetTokenError,
+      err,
     }
   }
 }

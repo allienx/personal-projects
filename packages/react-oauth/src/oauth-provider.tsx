@@ -3,7 +3,9 @@ import AuthContext, { AuthContextState } from './auth-context'
 import getOauthDefinitionHelper from './definitions/get-oauth-definition-helper'
 import { OauthDefinition } from './definitions/oauth-definition'
 import authStorage from './storage/auth-storage'
-import useOauthRefreshToken from './use-oauth-refresh-token'
+import useOauthRefreshToken, {
+  OauthRefreshTokenStatus,
+} from './use-oauth-refresh-token'
 
 export interface OauthProviderProps {
   definition: OauthDefinition
@@ -12,26 +14,17 @@ export interface OauthProviderProps {
 }
 
 const initialAuthStorageState = authStorage.getData()
-const isAccessTokenExpired =
-  !!initialAuthStorageState?.atk &&
-  !!initialAuthStorageState.exp &&
-  new Date() > new Date(initialAuthStorageState.exp)
-const hasRefreshToken = false
 
 export default function OauthProvider({
   definition,
   loader,
   children,
 }: OauthProviderProps) {
-  const [authState, setAuthState] = useState(
-    !isAccessTokenExpired ? initialAuthStorageState : null,
-  )
+  const [authState, setAuthState] = useState(initialAuthStorageState)
 
-  useOauthRefreshToken({
-    isAccessTokenExpired,
-    hasRefreshToken,
-    setAuthState,
-  })
+  const isAccessTokenExpired =
+    !!authState?.atk && !!authState?.exp && new Date() > new Date(authState.exp)
+  const hasRefreshToken = !!authState?.rtk
 
   const contextValue = useMemo<AuthContextState>(() => {
     const oauthDefinitionHelper = getOauthDefinitionHelper(definition)
@@ -49,6 +42,33 @@ export default function OauthProvider({
       },
     }
   }, [authState, definition])
+
+  useOauthRefreshToken({
+    definition,
+    accessToken: authState?.atk || null,
+    expiresAt: authState?.exp || null,
+    refreshToken: authState?.rtk || null,
+    tokenUrl: contextValue.tokenUrl,
+    callback: (result) => {
+      switch (result.status) {
+        case OauthRefreshTokenStatus.RefreshTokenMissing:
+          setAuthState(null)
+          break
+
+        case OauthRefreshTokenStatus.RefreshTokenError:
+          setAuthState(null)
+          break
+
+        case OauthRefreshTokenStatus.RefreshTokenSuccess:
+          setAuthState(result.data)
+          break
+
+        case OauthRefreshTokenStatus.AccessTokenValid:
+        default:
+          break
+      }
+    },
+  })
 
   // Display a loading state while we are refreshing the access token.
   // We will either:
