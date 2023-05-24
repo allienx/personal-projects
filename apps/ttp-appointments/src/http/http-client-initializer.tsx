@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import useOauthState from 'react-oauth/src/use-oauth-state'
+import useOauthState from 'react-oauth/lib/use-oauth-state'
 import { httpClient } from 'src/http/http-client'
 
 export default function HttpClientInitializer() {

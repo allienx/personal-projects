@@ -1,6 +1,6 @@
 import { Center } from '@chakra-ui/react'
-import useOauthGetToken from 'react-oauth/src/use-oauth-get-token'
-import useOauthState from 'react-oauth/src/use-oauth-state'
+import useOauthGetToken from 'react-oauth/lib/use-oauth-get-token'
+import useOauthState from 'react-oauth/lib/use-oauth-state'
 import { Navigate, useSearchParams } from 'react-router-dom'
 import LoadingSpinner from 'src/components/spinner/loading-spinner'
 
