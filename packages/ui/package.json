@@ -4,11 +4,11 @@
   "main": "./index.ts",
   "types": "./index.ts",
   "dependencies": {
-    "@chakra-ui/icons": "2.0.10",
-    "@chakra-ui/react": "2.3.4",
-    "@emotion/react": "11.10.4",
-    "@emotion/styled": "11.10.4",
-    "framer-motion": "7.3.6",
+    "@chakra-ui/icons": "2.0.19",
+    "@chakra-ui/react": "2.6.1",
+    "@emotion/react": "11.11.0",
+    "@emotion/styled": "11.11.0",
+    "framer-motion": "10.12.16",
     "lodash": "4.17.21",
     "react": "18.2.0",
     "react-dom": "18.2.0"

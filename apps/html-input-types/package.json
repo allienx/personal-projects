@@ -14,9 +14,9 @@
     "postinstall": "yarn run gen:theme-typings"
   },
   "dependencies": {
-    "@chakra-ui/react": "2.3.4",
-    "@emotion/react": "11.10.4",
-    "@emotion/styled": "11.10.4",
+    "@chakra-ui/react": "2.6.1",
+    "@emotion/react": "11.11.0",
+    "@emotion/styled": "11.11.0",
     "@fontsource/jetbrains-mono": "4.5.10",
     "framer-motion": "7.3.6",
     "lodash": "4.17.21",
