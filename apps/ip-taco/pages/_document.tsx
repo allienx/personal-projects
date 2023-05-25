@@ -28,8 +28,6 @@ export default function Document() {
         />
         <link rel="manifest" href="/site.webmanifest" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffc40d" />
-
-        <title>ip taco</title>
       </Head>
 
       <body>

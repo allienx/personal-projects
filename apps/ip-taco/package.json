@@ -6,6 +6,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
     "typecheck": "tsc -p tsconfig.json --noEmit --pretty",
     "gen:theme-typings": "chakra-cli tokens config/theme/theme.ts",
     "postinstall": "yarn run gen:theme-typings"
@@ -31,6 +33,7 @@
     "@types/react-dom": "18.0.6",
     "eslint": "8.24.0",
     "eslint-config-next": "12.3.1",
+    "prettier": "2.7.1",
     "typescript": "4.8.3"
   }
 }

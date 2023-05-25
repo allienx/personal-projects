@@ -9,6 +9,7 @@
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
+    "typecheck": "tsc -p tsconfig.json --noEmit --pretty",
     "gen:theme-typings": "chakra-cli tokens src/config/theme/theme.ts",
     "postinstall": "yarn run gen:theme-typings"
   },
