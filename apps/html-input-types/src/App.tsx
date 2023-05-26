@@ -26,7 +26,7 @@ const AvailableHtmlInputTypes = [
   'range',
 ] as const
 
-type HtmlInputType = typeof AvailableHtmlInputTypes[number]
+type HtmlInputType = (typeof AvailableHtmlInputTypes)[number]
 
 export default function App() {
   const isMobile = useBreakpointValue({ base: true, md: false })

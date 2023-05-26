@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  extends: ['react-ts']
+  extends: ['react-ts'],
 }

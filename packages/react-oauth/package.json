@@ -2,6 +2,13 @@
   "private": true,
   "name": "react-oauth",
   "version": "0.0.0",
+  "scripts": {
+    "lint": "eslint \"lib/**/*.{js,jsx,ts,tsx}\"",
+    "lint:fix": "eslint --fix \"lib/**/*.{js,jsx,ts,tsx}\"",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "typecheck": "tsc -p tsconfig.json --noEmit --pretty"
+  },
   "dependencies": {
     "react": "18.2.0",
     "react-dom": "18.2.0"
@@ -11,7 +18,7 @@
     "@types/react-dom": "18.2.4",
     "eslint": "8.41.0",
     "eslint-config-react-ts": "*",
-    "prettier": "2.7.1",
+    "prettier": "2.8.8",
     "tsconfig-react": "*",
     "typescript": "4.8.3"
   }

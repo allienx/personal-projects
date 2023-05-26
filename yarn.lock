@@ -3162,7 +3162,7 @@ __metadata:
     eslint-config-react-ts: "*"
     framer-motion: 10.12.16
     lodash: 4.17.21
-    prettier: 2.7.1
+    prettier: 2.8.8
     react: 18.2.0
     react-dom: 18.2.0
     tsconfig-react: "*"
@@ -3842,7 +3842,7 @@ __metadata:
     eslint-plugin-jsx-a11y: 6.7.1
     eslint-plugin-react: 7.32.2
     eslint-plugin-react-hooks: 4.6.0
-    prettier: 2.7.1
+    prettier: 2.8.8
     typescript: 4.8.3
   languageName: unknown
   linkType: soft
@@ -4739,7 +4739,7 @@ __metadata:
     eslint-config-react-ts: "*"
     framer-motion: 10.12.16
     lodash: 4.17.21
-    prettier: 2.7.1
+    prettier: 2.8.8
     react: 18.2.0
     react-dom: 18.2.0
     tsconfig-react: "*"
@@ -4901,7 +4901,7 @@ __metadata:
     eslint-config-next: 12.3.1
     framer-motion: 10.12.16
     next: 12.3.1
-    prettier: 2.7.1
+    prettier: 2.8.8
     react: 18.2.0
     react-dom: 18.2.0
     tsconfig-react: "*"
@@ -6074,12 +6074,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.7.1":
-  version: 2.7.1
-  resolution: "prettier@npm:2.7.1"
+"prettier@npm:2.8.8, prettier@npm:^2.8.8":
+  version: 2.8.8
+  resolution: "prettier@npm:2.8.8"
   bin:
     prettier: bin-prettier.js
-  checksum: 55a4409182260866ab31284d929b3cb961e5fdb91fe0d2e099dac92eaecec890f36e524b4c19e6ceae839c99c6d7195817579cdffc8e2c80da0cb794463a748b
+  checksum: b49e409431bf129dd89238d64299ba80717b57ff5a6d1c1a8b1a28b590d998a34e083fa13573bc732bb8d2305becb4c9a4407f8486c81fa7d55100eb08263cf8
   languageName: node
   linkType: hard
 
@@ -6089,15 +6089,6 @@ __metadata:
   bin:
     prettier: bin-prettier.js
   checksum: 5b55bb1dced9d16635b83229df8e670d150890fdb343f19e8a66e610094a108e960c0f57352b3e5cdbc4eff4ef00a834406047ffcd9f20bd22a6497ba143c81f
-  languageName: node
-  linkType: hard
-
-"prettier@npm:^2.8.8":
-  version: 2.8.8
-  resolution: "prettier@npm:2.8.8"
-  bin:
-    prettier: bin-prettier.js
-  checksum: b49e409431bf129dd89238d64299ba80717b57ff5a6d1c1a8b1a28b590d998a34e083fa13573bc732bb8d2305becb4c9a4407f8486c81fa7d55100eb08263cf8
   languageName: node
   linkType: hard
 
@@ -6215,7 +6206,7 @@ __metadata:
     "@types/react-dom": 18.2.4
     eslint: 8.41.0
     eslint-config-react-ts: "*"
-    prettier: 2.7.1
+    prettier: 2.8.8
     react: 18.2.0
     react-dom: 18.2.0
     tsconfig-react: "*"
@@ -7014,7 +7005,7 @@ __metadata:
     framer-motion: 10.12.16
     fuse.js: 6.6.2
     lodash: 4.17.21
-    prettier: 2.7.1
+    prettier: 2.8.8
     react: 18.2.0
     react-dom: 18.2.0
     react-oauth: "*"
@@ -7088,7 +7079,7 @@ __metadata:
     eslint-config-react-ts: "*"
     framer-motion: 10.12.16
     lodash: 4.17.21
-    prettier: 2.7.1
+    prettier: 2.8.8
     react: 18.2.0
     react-dom: 18.2.0
     typescript: 4.8.3

@@ -2,6 +2,10 @@
   "private": true,
   "name": "tsconfig-react",
   "version": "0.0.0",
+  "scripts": {
+    "format": "prettier --check .",
+    "format:fix": "prettier --write ."
+  },
   "publishConfig": {
     "access": "public"
   }
