@@ -8,9 +8,9 @@ import {
   Link,
   Text,
 } from '@chakra-ui/react'
-import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz'
 import format from 'date-fns/format'
 import parseISO from 'date-fns/parseISO'
+import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz'
 import groupBy from 'lodash/groupBy'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
 import { TtpSlot } from 'src/http/ttp/ttp-slot'
