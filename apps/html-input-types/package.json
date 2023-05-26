@@ -1,6 +1,6 @@
 {
-  "name": "html-input-types",
   "private": true,
+  "name": "html-input-types",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

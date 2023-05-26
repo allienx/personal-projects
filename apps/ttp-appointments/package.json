@@ -1,6 +1,6 @@
 {
-  "name": "ttp-appointments",
   "private": true,
+  "name": "ttp-appointments",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

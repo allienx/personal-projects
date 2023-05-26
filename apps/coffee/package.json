@@ -1,6 +1,6 @@
 {
-  "name": "coffee",
   "private": true,
+  "name": "coffee",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

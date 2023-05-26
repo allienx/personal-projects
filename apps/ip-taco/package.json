@@ -1,6 +1,6 @@
 {
-  "name": "ip-taco",
   "private": true,
+  "name": "ip-taco",
   "scripts": {
     "dev": "next dev -p 3003",
     "build": "next build",

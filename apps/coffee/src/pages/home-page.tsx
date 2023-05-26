@@ -4,7 +4,7 @@ import { useState } from 'react'
 import coffeeEmoji from 'src/assets/coffee-2615.svg'
 import { PageWrapper } from 'ui'
 
-export default function App() {
+export default function HomePage() {
   const [stopJumping, setStopJumping] = useState(false)
 
   return (

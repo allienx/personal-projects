@@ -7,7 +7,7 @@ import {
   useBreakpointValue,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import LogoIcon from 'src/components/Icons/LogoIcon'
+import LogoIcon from 'src/components/icons/logo-icon'
 import { AboutInfo, PageContent, PageFooter, PageHeader, PageWrapper } from 'ui'
 
 const AvailableHtmlInputTypes = [
@@ -28,7 +28,7 @@ const AvailableHtmlInputTypes = [
 
 type HtmlInputType = (typeof AvailableHtmlInputTypes)[number]
 
-export default function App() {
+export default function HomePage() {
   const isMobile = useBreakpointValue({ base: true, md: false })
 
   const [inputType, setInputType] = useState<HtmlInputType>(
