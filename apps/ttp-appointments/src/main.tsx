@@ -38,7 +38,7 @@ root.render(
         definition={oauthDefinition}
         loader={
           <Center height="100vh">
-            <LoadingSpinner />
+            <LoadingSpinner size="xl" />
           </Center>
         }
       >

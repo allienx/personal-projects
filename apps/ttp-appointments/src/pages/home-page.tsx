@@ -15,7 +15,7 @@ export default function HomePage() {
     return ttpStorage.getRecentLocations()[0] || null
   })
 
-  const handleAppointmentLocationChange = useCallback((loc: TtpLocation) => {
+  const handleTtpLocationChange = useCallback((loc: TtpLocation) => {
     ttpStorage.saveRecentLocation(loc)
 
     setTtpLocation(loc)
@@ -30,9 +30,7 @@ export default function HomePage() {
 
       {authState?.atk ? (
         <PageContent>
-          <TtpLocationSearch
-            onAppointmentLocationChange={handleAppointmentLocationChange}
-          />
+          <TtpLocationSearch onChange={handleTtpLocationChange} />
 
           <TtpSlotListWrapper ttpLocation={ttpLocation} />
         </PageContent>

@@ -2,14 +2,16 @@ import { useEffect } from 'react'
 
 export interface UseSearchKeyboardEventsProps {
   isOpen: boolean
-  onClose: () => void
+  shortcutKey: string
   onOpen: () => void
+  onClose: () => void
 }
 
-export default function useSearchKeyboardEvents({
+export default function useSearchKeydownEvent({
   isOpen,
-  onClose,
+  shortcutKey,
   onOpen,
+  onClose,
 }: UseSearchKeyboardEventsProps) {
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -17,7 +19,10 @@ export default function useSearchKeyboardEvents({
         event.preventDefault()
 
         onClose()
-      } else if (event.key === 'k' && (event.metaKey || event.ctrlKey)) {
+      } else if (
+        event.key === shortcutKey.toLowerCase() &&
+        (event.metaKey || event.ctrlKey)
+      ) {
         event.preventDefault()
 
         if (isOpen) {
@@ -33,5 +38,5 @@ export default function useSearchKeyboardEvents({
     return () => {
       window.removeEventListener('keydown', onKeyDown)
     }
-  }, [isOpen, onOpen, onClose])
+  }, [isOpen, onOpen, onClose, shortcutKey])
 }

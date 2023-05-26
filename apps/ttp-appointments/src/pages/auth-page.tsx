@@ -22,7 +22,7 @@ export default function AuthPage() {
   if (!authState?.atk) {
     return (
       <Center height="100vh">
-        <LoadingSpinner />
+        <LoadingSpinner size="xl" />
       </Center>
     )
   }

@@ -68,7 +68,7 @@ export default function TtpSlotListWrapper({
 
         <Flex alignItems="center" ml={2}>
           {ttpSlotsQuery.data && ttpSlotsQuery.isFetching ? (
-            <LoadingSpinner mr={2} size="sm" thickness="2px" />
+            <LoadingSpinner mr={2} size="sm" />
           ) : (
             <Box width="24px" />
           )}
@@ -104,7 +104,7 @@ export default function TtpSlotListWrapper({
         <Box mt={8}>
           {ttpSlotsQuery.isLoading && !ttpSlotsQuery.isError && (
             <Center>
-              <LoadingSpinner size="md" thickness="2px" />
+              <LoadingSpinner />
             </Center>
           )}
 
