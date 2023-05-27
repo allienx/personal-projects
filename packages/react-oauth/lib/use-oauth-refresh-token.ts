@@ -97,9 +97,10 @@ async function getAccessToken({
         }
       }
 
+      // Store the original 'refreshToken', the refresh token response does not return one.
       const state: AuthStorageState = {
         atk: data.access_token,
-        rtk: data.refresh_token || null,
+        rtk: refreshToken,
         exp: new Date(
           new Date().valueOf() + data.expires_in * 1000,
         ).toISOString(),
