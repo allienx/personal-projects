@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react'
 import useOauthState from 'react-oauth/lib/use-oauth-state'
 import LogoIcon from 'src/components/icons/logo-icon'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
-import TtpLocationSearch from 'src/pages/home/ttp-location-search'
+import TtpLocationSearchWrapper from 'src/pages/home/ttp-location-search-wrapper'
 import TtpSlotListWrapper from 'src/pages/home/ttp-slot-list-wrapper'
 import ttpStorage from 'src/utils/storage/ttp-storage'
 import { AboutInfo, PageContent, PageFooter, PageHeader, PageWrapper } from 'ui'
@@ -30,7 +30,7 @@ export default function HomePage() {
 
       {authState?.atk ? (
         <PageContent>
-          <TtpLocationSearch onChange={handleTtpLocationChange} />
+          <TtpLocationSearchWrapper onChange={handleTtpLocationChange} />
 
           <TtpSlotListWrapper ttpLocation={ttpLocation} />
         </PageContent>

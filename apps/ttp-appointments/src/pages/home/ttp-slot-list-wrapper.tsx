@@ -111,7 +111,7 @@ export default function TtpSlotListWrapper({
           {!ttpSlotsQuery.isLoading && ttpSlotsQuery.isError && (
             <Alert status="error">
               <AlertIcon />
-              There was an error loading the slots.
+              There was an error loading appointment availability.
             </Alert>
           )}
 

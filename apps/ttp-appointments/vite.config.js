@@ -10,13 +10,19 @@ export default defineConfig({
     open: true,
     port: 3004,
     proxy: {
-      '/.netlify': 'https://imaginative-sprite-9f6df6.netlify.app',
+      '/api/locations':
+        'https://d7gqolvzu4eus4vys5x75lytpm0fgzxh.lambda-url.us-east-2.on.aws',
+      '/api/slots':
+        'https://me63q6uiwxolyxtkgk75naatxy0jfmsa.lambda-url.us-east-2.on.aws',
     },
   },
 
   preview: {
     proxy: {
-      '/.netlify': 'https://imaginative-sprite-9f6df6.netlify.app',
+      '/api/locations':
+        'https://d7gqolvzu4eus4vys5x75lytpm0fgzxh.lambda-url.us-east-2.on.aws',
+      '/api/slots':
+        'https://me63q6uiwxolyxtkgk75naatxy0jfmsa.lambda-url.us-east-2.on.aws',
     },
   },
 })

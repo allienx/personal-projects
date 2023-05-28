@@ -1,9 +1,15 @@
+import { EnvVars } from 'src/config/env-vars'
+
 export default class TtpApi {
   static locationsUrl() {
-    return 'https://d7gqolvzu4eus4vys5x75lytpm0fgzxh.lambda-url.us-east-2.on.aws'
+    return EnvVars.IsProduction
+      ? 'https://d7gqolvzu4eus4vys5x75lytpm0fgzxh.lambda-url.us-east-2.on.aws'
+      : '/api/locations'
   }
 
   static slotsUrl() {
-    return 'https://me63q6uiwxolyxtkgk75naatxy0jfmsa.lambda-url.us-east-2.on.aws'
+    return EnvVars.IsProduction
+      ? 'https://me63q6uiwxolyxtkgk75naatxy0jfmsa.lambda-url.us-east-2.on.aws'
+      : '/api/slots'
   }
 }
