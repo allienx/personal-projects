@@ -5,12 +5,11 @@ import {
   ModalContent,
   ModalOverlay,
   useBreakpointValue,
-  useDisclosure,
 } from '@chakra-ui/react'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
 import TtpLocationSearch from 'src/pages/home/ttp-location-search'
 import SearchButton from 'ui/lib/search/search-button'
-import useSearchKeydownEvent from 'ui/lib/search/use-search-keydown-event'
+import useSearchDisclosure from 'ui/lib/search/use-search-disclosure'
 
 interface TtpLocationSearchWrapperProps {
   boxProps?: BoxProps
@@ -22,9 +21,7 @@ export default function TtpLocationSearchWrapper({
   onChange,
 }: TtpLocationSearchWrapperProps) {
   const modalSize = useBreakpointValue({ base: 'full', md: 'md' })
-  const { isOpen, onOpen, onClose } = useDisclosure()
-
-  useSearchKeydownEvent({ isOpen, shortcutKey: 'k', onOpen, onClose })
+  const { isOpen, onOpen, onClose } = useSearchDisclosure({ shortcutKey: 'k' })
 
   return (
     <Box {...boxProps}>

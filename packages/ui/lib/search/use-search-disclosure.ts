@@ -1,20 +1,17 @@
+import { useDisclosure } from '@chakra-ui/react'
 import { useEffect } from 'react'
 
-export interface UseSearchKeyboardEventsProps {
-  isOpen: boolean
+export interface UseSearchDisclosureProps {
   shortcutKey: string
-  onOpen: () => void
-  onClose: () => void
 }
 
-export default function useSearchKeydownEvent({
-  isOpen,
+export default function useSearchDisclosure({
   shortcutKey,
-  onOpen,
-  onClose,
-}: UseSearchKeyboardEventsProps) {
+}: UseSearchDisclosureProps) {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
+    const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isOpen) {
         event.preventDefault()
 
@@ -39,4 +36,10 @@ export default function useSearchKeydownEvent({
       window.removeEventListener('keydown', onKeyDown)
     }
   }, [isOpen, onOpen, onClose, shortcutKey])
+
+  return {
+    isOpen,
+    onOpen,
+    onClose,
+  }
 }

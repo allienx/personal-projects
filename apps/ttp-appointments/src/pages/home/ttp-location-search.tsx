@@ -1,15 +1,17 @@
 import { Alert, AlertIcon, Box, Text } from '@chakra-ui/react'
 import Fuse from 'fuse.js'
 import debounce from 'lodash/debounce'
-import { MouseEventHandler, useMemo, useState } from 'react'
+import { MouseEventHandler, useEffect, useMemo, useState } from 'react'
 import LoadingSpinner from 'src/components/spinner/loading-spinner'
 import TtpApi from 'src/http/ttp/ttp-api'
 import { TtpApiListResponse } from 'src/http/ttp/ttp-api-list-response'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
 import useHttpQuery from 'src/http/use-http-query'
 import ttpStorage from 'src/utils/storage/ttp-storage'
+import getSearchListItemProps from 'ui/lib/search/get-search-list-item-props'
 import SearchInput from 'ui/lib/search/search-input'
 import SearchList from 'ui/lib/search/search-list'
+import useSearchActiveIndex from 'ui/lib/search/use-search-active-index'
 
 export interface TtpLocationSearchProps {
   onChange: (ttpLocation: TtpLocation) => void
@@ -27,9 +29,9 @@ export default function TtpLocationSearch({
     url: TtpApi.locationsUrl(),
     queryOpts: {
       cacheTime: Infinity,
-      staleTime: Infinity,
+      staleTime: 60 * 60 * 1000,
       refetchOnMount: false,
-      refetchOnWindowFocus: 'always',
+      refetchOnWindowFocus: true,
     },
   })
   const allTtpLocations = allTtpLocationsQuery.data?.records
@@ -69,6 +71,28 @@ export default function TtpLocationSearch({
       setSearchValue(newSearchValue)
     }, 100)
   }, [])
+
+  const { activeIndex, triggerSelection, onListItemMouseEnter } =
+    useSearchActiveIndex({
+      listLength: searchMatches.length,
+    })
+
+  useEffect(() => {
+    if (!triggerSelection) {
+      return
+    }
+
+    const match = searchMatches[activeIndex]
+
+    if (!(match && match.item)) {
+      return
+    }
+
+    onChange(match.item)
+    onClose()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [triggerSelection])
 
   const handleTtpLocationClick: MouseEventHandler<HTMLLIElement> = (event) => {
     const locId = Number(event.currentTarget.getAttribute('data-ttp-loc-id'))
@@ -123,14 +147,16 @@ export default function TtpLocationSearch({
           overflowY: 'auto',
         }}
       >
-        {searchMatches.map((match) => {
+        {searchMatches.map((match, index) => {
           const ttpLocation = match.item
+          const isActive = index === activeIndex
 
           return (
             <Box
-              _hover={{ cursor: 'pointer' }}
+              data-group
+              _hover={{ cursor: 'pointer', bgColor: 'teal' }}
               as="li"
-              // bgColor={isActive ? 'teal' : undefined}
+              bgColor={isActive ? 'teal' : undefined}
               borderRadius={4}
               data-ttp-loc-id={ttpLocation.id}
               key={ttpLocation.id}
@@ -138,15 +164,22 @@ export default function TtpLocationSearch({
               px={4}
               py={2}
               onClick={handleTtpLocationClick}
+              onMouseEnter={onListItemMouseEnter}
+              {...getSearchListItemProps(index)}
             >
               <Text
-                // color={isActive ? 'gray.300' : 'gray'}
+                _groupHover={{ color: 'gray.200' }}
+                color={isActive ? 'gray.200' : 'gray'}
                 fontSize="xs"
                 fontWeight={500}
               >
                 {ttpLocation.city}, {ttpLocation.state}
               </Text>
-              <Text fontWeight={600}>
+              <Text
+                _groupHover={{ color: 'white' }}
+                color={isActive ? 'white' : undefined}
+                fontWeight={600}
+              >
                 {ttpLocation.name || ttpLocation.shortName}
               </Text>
             </Box>
