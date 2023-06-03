@@ -3,9 +3,12 @@ import Fuse from 'fuse.js'
 import debounce from 'lodash/debounce'
 import { MouseEventHandler, useEffect, useMemo, useState } from 'react'
 import LoadingSpinner from 'src/components/spinner/loading-spinner'
+import getTtpLocationCity from 'src/http/ttp/get-ttp-location-city'
+import getTtpLocationDisplayName from 'src/http/ttp/get-ttp-location-display-name'
 import TtpApi from 'src/http/ttp/ttp-api'
 import { TtpApiListResponse } from 'src/http/ttp/ttp-api-list-response'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
+import { TtpService } from 'src/http/ttp/ttp-service'
 import useHttpQuery from 'src/http/use-http-query'
 import ttpStorage from 'src/utils/storage/ttp-storage'
 import getSearchListItemProps from 'ui/lib/search/get-search-list-item-props'
@@ -27,6 +30,11 @@ export default function TtpLocationSearch({
 
   const allTtpLocationsQuery = useHttpQuery<TtpApiListResponse<TtpLocation>>({
     url: TtpApi.locationsUrl(),
+    config: {
+      params: {
+        services: [TtpService.GlobalEntry],
+      },
+    },
     queryOpts: {
       cacheTime: Infinity,
       staleTime: 60 * 60 * 1000,
@@ -38,7 +46,7 @@ export default function TtpLocationSearch({
 
   const fuse = useMemo(() => {
     return new Fuse(allTtpLocations || [], {
-      keys: ['name', 'shortName', 'city', 'state'],
+      keys: ['name', 'nameFull', 'city', 'province', 'country'],
       includeScore: true,
       minMatchCharLength: 2,
     })
@@ -148,8 +156,8 @@ export default function TtpLocationSearch({
         }}
       >
         {searchMatches.map((match, index) => {
-          const ttpLocation = match.item
           const isActive = index === activeIndex
+          const ttpLocation = match.item
 
           return (
             <Box
@@ -173,14 +181,14 @@ export default function TtpLocationSearch({
                 fontSize="xs"
                 fontWeight={500}
               >
-                {ttpLocation.city}, {ttpLocation.state}
+                {getTtpLocationCity(ttpLocation)}
               </Text>
               <Text
                 _groupHover={{ color: 'white' }}
                 color={isActive ? 'white' : undefined}
                 fontWeight={600}
               >
-                {ttpLocation.name || ttpLocation.shortName}
+                {getTtpLocationDisplayName(ttpLocation)}
               </Text>
             </Box>
           )

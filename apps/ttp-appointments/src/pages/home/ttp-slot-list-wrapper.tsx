@@ -16,6 +16,8 @@ import {
 import useOauthState from 'react-oauth/lib/use-oauth-state'
 import LoadingSpinner from 'src/components/spinner/loading-spinner'
 import { EnvVars } from 'src/config/env-vars'
+import getTtpLocationCity from 'src/http/ttp/get-ttp-location-city'
+import getTtpLocationDisplayName from 'src/http/ttp/get-ttp-location-display-name'
 import TtpApi from 'src/http/ttp/ttp-api'
 import { TtpApiListResponse } from 'src/http/ttp/ttp-api-list-response'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
@@ -57,10 +59,10 @@ export default function TtpSlotListWrapper({
           {ttpLocation ? (
             <div>
               <Text color="gray.200" fontSize="xs" fontWeight={500}>
-                {ttpLocation.city}, {ttpLocation.state}
+                {getTtpLocationCity(ttpLocation)}
               </Text>
               <Text color="white" fontWeight={600}>
-                {ttpLocation.name || ttpLocation.shortName}
+                {getTtpLocationDisplayName(ttpLocation)}
               </Text>
             </div>
           ) : (

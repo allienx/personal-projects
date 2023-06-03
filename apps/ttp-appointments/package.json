@@ -26,6 +26,7 @@
     "framer-motion": "10.12.16",
     "fuse.js": "6.6.2",
     "lodash": "4.17.21",
+    "qs": "6.11.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-oauth": "*",
@@ -35,6 +36,7 @@
   "devDependencies": {
     "@chakra-ui/cli": "2.4.1",
     "@types/node": "18.15.3",
+    "@types/qs": "6.9.7",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
     "@vitejs/plugin-react": "4.0.0",

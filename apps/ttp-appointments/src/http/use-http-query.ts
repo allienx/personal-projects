@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { UseQueryOptions } from '@tanstack/react-query/src/types'
 import { AxiosRequestConfig } from 'axios'
+import { stringify } from 'qs'
 import { httpClient } from 'src/http/http-client'
 
 interface UseHttpQueryOpts<D> {
@@ -21,6 +22,9 @@ export default function useHttpQuery<D>({
         method: 'GET',
         url,
         ...config,
+        paramsSerializer: (params) => {
+          return stringify(params, { arrayFormat: 'brackets' })
+        },
       })
 
       return res.data

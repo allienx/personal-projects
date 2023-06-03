@@ -26,9 +26,9 @@ export default function TtpSlotList({
   ...props
 }: TtpSlotListProps) {
   const slotsByDay = groupBy(ttpSlots, (slot) => {
-    const zonedDate = zonedTimeToUtc(slot.startTimestamp, ttpLocation.tzData)
+    const zonedDate = zonedTimeToUtc(slot.startTimestamp, ttpLocation.timezone)
 
-    return formatInTimeZone(zonedDate, ttpLocation.tzData, 'yyyy-MM-dd')
+    return formatInTimeZone(zonedDate, ttpLocation.timezone, 'yyyy-MM-dd')
   })
 
   if (ttpSlots.length === 0) {
@@ -75,11 +75,11 @@ export default function TtpSlotList({
 
                 const zonedDate = zonedTimeToUtc(
                   startTimestamp,
-                  ttpLocation.tzData,
+                  ttpLocation.timezone,
                 )
                 const timeStr = formatInTimeZone(
                   zonedDate,
-                  ttpLocation.tzData,
+                  ttpLocation.timezone,
                   'p',
                 )
 
