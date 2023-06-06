@@ -1,7 +1,7 @@
 import { Alert, AlertIcon, Box, BoxProps, Center } from '@chakra-ui/react'
 import LoadingSpinner from 'src/components/spinner/loading-spinner'
 import TtpApi from 'src/http/ttp/ttp-api'
-import { TtpApiListResponse } from 'src/http/ttp/ttp-api-list-response'
+import { TtpApiListResponse } from 'src/http/ttp/ttp-api-response'
 import { TtpUserSlot } from 'src/http/ttp/ttp-user-slot'
 import useHttpQuery from 'src/http/use-http-query'
 
@@ -21,20 +21,20 @@ export default function TtpUserSlotListWrapper({
 
   return (
     <Box {...boxProps}>
-      {ttpUserSlotsQuery.isLoading && !ttpUserSlotsQuery.isError && (
+      {ttpUserSlotsQuery.isFetching && !ttpUserSlotsQuery.isError && (
         <Center>
           <LoadingSpinner />
         </Center>
       )}
 
-      {!ttpUserSlotsQuery.isLoading && ttpUserSlotsQuery.isError && (
+      {!ttpUserSlotsQuery.isFetching && ttpUserSlotsQuery.isError && (
         <Alert status="error">
           <AlertIcon />
           There was an error loading your appointment searches.
         </Alert>
       )}
 
-      {!ttpUserSlotsQuery.isLoading &&
+      {!ttpUserSlotsQuery.isFetching &&
         !ttpUserSlotsQuery.isError &&
         ttpUserSlots &&
         ttpUserSlots.map((userSlot) => {

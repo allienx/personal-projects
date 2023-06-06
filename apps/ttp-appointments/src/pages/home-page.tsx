@@ -1,7 +1,10 @@
 import { Button, Link } from '@chakra-ui/react'
+import { useQueryClient } from '@tanstack/react-query'
 import { useCallback, useState } from 'react'
 import useOauthState from 'react-oauth/lib/use-oauth-state'
 import LogoIcon from 'src/components/icons/logo-icon'
+import CreateUserSlotFormDialog from 'src/forms/create-user-slot-form/create-user-slot-form-dialog'
+import TtpApi from 'src/http/ttp/ttp-api'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
 import HomeContentWrapper from 'src/pages/home/home-content-wrapper'
 import TtpLocationSearchWrapper from 'src/pages/home/ttp-location-search-wrapper'
@@ -10,9 +13,10 @@ import ttpStorage from 'src/utils/storage/ttp-storage'
 import { AboutInfo, PageContent, PageFooter, PageHeader, PageWrapper } from 'ui'
 
 export default function HomePage() {
+  const queryClient = useQueryClient()
   const { authState, loginUrl } = useOauthState()
 
-  const [_, setTtpLocation] = useState<TtpLocation | null>(null)
+  const [ttpLocation, setTtpLocation] = useState<TtpLocation | null>(null)
 
   const handleTtpLocationChange = useCallback((loc: TtpLocation) => {
     ttpStorage.saveRecentLocation(loc)
@@ -47,6 +51,20 @@ export default function HomePage() {
           initialEmoji="🗓️"
         />
       </PageFooter>
+
+      {ttpLocation && (
+        <CreateUserSlotFormDialog
+          modalProps={{ isOpen: !!ttpLocation }}
+          ttpLocation={ttpLocation}
+          onClose={(result) => {
+            if (result.type === 'success') {
+              queryClient.invalidateQueries([TtpApi.userSlotsUrl()])
+            }
+
+            setTtpLocation(null)
+          }}
+        />
+      )}
     </PageWrapper>
   )
 }

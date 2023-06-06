@@ -1,6 +1,6 @@
 import { UseQueryOptions } from '@tanstack/react-query/src/types'
 import TtpApi from 'src/http/ttp/ttp-api'
-import { TtpApiListResponse } from 'src/http/ttp/ttp-api-list-response'
+import { TtpApiListResponse } from 'src/http/ttp/ttp-api-response'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
 import { TtpService } from 'src/http/ttp/ttp-service'
 import useHttpQuery from 'src/http/use-http-query'
