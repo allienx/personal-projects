@@ -10,33 +10,51 @@ export default defineConfig({
     open: true,
     port: 3004,
     proxy: {
-      '/api/locations': {
+      '/api/create-user-slot': createLambdaProxy({
+        target:
+          'https://rknra6vulmbgg6tsoh4reisvim0gmyzb.lambda-url.us-east-2.on.aws',
+      }),
+      '/api/locations': createLambdaProxy({
         target:
           'https://d7gqolvzu4eus4vys5x75lytpm0fgzxh.lambda-url.us-east-2.on.aws',
-        changeOrigin: true,
-        prependPath: false,
-      },
-      '/api/slots': {
+      }),
+      '/api/slots': createLambdaProxy({
         target:
           'https://me63q6uiwxolyxtkgk75naatxy0jfmsa.lambda-url.us-east-2.on.aws',
-        changeOrigin: true,
-        prependPath: false,
-      },
+      }),
+      '/api/user-slots': createLambdaProxy({
+        target:
+          'https://pykmienm6mzkuxgdmvgtztw4dy0qzlmh.lambda-url.us-east-2.on.aws',
+      }),
     },
   },
 
   preview: {
     proxy: {
-      '/api/locations': {
+      '/api/create-user-slot': createLambdaProxy({
+        target:
+          'https://rknra6vulmbgg6tsoh4reisvim0gmyzb.lambda-url.us-east-2.on.aws',
+      }),
+      '/api/locations': createLambdaProxy({
         target:
           'https://d7gqolvzu4eus4vys5x75lytpm0fgzxh.lambda-url.us-east-2.on.aws',
-        rewrite: (path) => path.replace(/^\/api\/locations/, ''),
-      },
-      '/api/slots': {
+      }),
+      '/api/slots': createLambdaProxy({
         target:
           'https://me63q6uiwxolyxtkgk75naatxy0jfmsa.lambda-url.us-east-2.on.aws',
-        rewrite: (path) => path.replace(/^\/api\/slots/, ''),
-      },
+      }),
+      '/api/user-slots': createLambdaProxy({
+        target:
+          'https://pykmienm6mzkuxgdmvgtztw4dy0qzlmh.lambda-url.us-east-2.on.aws',
+      }),
     },
   },
 })
+
+function createLambdaProxy({ target }) {
+  return {
+    target,
+    changeOrigin: true,
+    prependPath: false,
+  }
+}

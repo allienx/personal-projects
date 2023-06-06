@@ -3,17 +3,16 @@ import { useCallback, useState } from 'react'
 import useOauthState from 'react-oauth/lib/use-oauth-state'
 import LogoIcon from 'src/components/icons/logo-icon'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
+import HomeContentWrapper from 'src/pages/home/home-content-wrapper'
 import TtpLocationSearchWrapper from 'src/pages/home/ttp-location-search-wrapper'
-import TtpSlotListWrapper from 'src/pages/home/ttp-slot-list-wrapper'
+import TtpUserSlotListWrapper from 'src/pages/home/ttp-user-slot-list-wrapper'
 import ttpStorage from 'src/utils/storage/ttp-storage'
 import { AboutInfo, PageContent, PageFooter, PageHeader, PageWrapper } from 'ui'
 
 export default function HomePage() {
   const { authState, loginUrl } = useOauthState()
 
-  const [ttpLocation, setTtpLocation] = useState<TtpLocation | null>(() => {
-    return ttpStorage.getRecentLocations()[0] || null
-  })
+  const [_, setTtpLocation] = useState<TtpLocation | null>(null)
 
   const handleTtpLocationChange = useCallback((loc: TtpLocation) => {
     ttpStorage.saveRecentLocation(loc)
@@ -29,11 +28,11 @@ export default function HomePage() {
       />
 
       {authState?.atk ? (
-        <PageContent>
+        <HomeContentWrapper boxProps={{ as: PageContent }}>
           <TtpLocationSearchWrapper onChange={handleTtpLocationChange} />
 
-          <TtpSlotListWrapper ttpLocation={ttpLocation} />
-        </PageContent>
+          <TtpUserSlotListWrapper boxProps={{ mt: 8 }} />
+        </HomeContentWrapper>
       ) : (
         <PageContent alignItems="center" display="flex" justifyContent="center">
           <Link href={loginUrl}>

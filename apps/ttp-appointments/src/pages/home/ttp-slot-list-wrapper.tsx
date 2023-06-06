@@ -15,7 +15,6 @@ import {
 } from '@chakra-ui/react'
 import useOauthState from 'react-oauth/lib/use-oauth-state'
 import LoadingSpinner from 'src/components/spinner/loading-spinner'
-import { EnvVars } from 'src/config/env-vars'
 import getTtpLocationCity from 'src/http/ttp/get-ttp-location-city'
 import getTtpLocationDisplayName from 'src/http/ttp/get-ttp-location-display-name'
 import TtpApi from 'src/http/ttp/ttp-api'
@@ -41,7 +40,6 @@ export default function TtpSlotListWrapper({
     },
     queryOpts: {
       enabled: !!ttpLocation?.id,
-      staleTime: EnvVars.isDev ? 60 * 60 * 1000 : undefined,
     },
   })
 

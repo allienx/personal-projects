@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, CreateAxiosDefaults } from 'axios'
+import { stringify } from 'qs'
 
-export default class HttpClient {
+class HttpClient {
   http
 
   constructor(config?: CreateAxiosDefaults) {
@@ -20,4 +21,8 @@ export default class HttpClient {
   }
 }
 
-export const httpClient = new HttpClient()
+export const httpClient = new HttpClient({
+  paramsSerializer: (params) => {
+    return stringify(params, { arrayFormat: 'brackets' })
+  },
+})

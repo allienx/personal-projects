@@ -1,16 +1,12 @@
-import { Alert, AlertIcon, Box, Text } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 import Fuse from 'fuse.js'
+import { sortBy } from 'lodash'
 import debounce from 'lodash/debounce'
 import { MouseEventHandler, useEffect, useMemo, useState } from 'react'
-import LoadingSpinner from 'src/components/spinner/loading-spinner'
 import getTtpLocationCity from 'src/http/ttp/get-ttp-location-city'
 import getTtpLocationDisplayName from 'src/http/ttp/get-ttp-location-display-name'
-import TtpApi from 'src/http/ttp/ttp-api'
-import { TtpApiListResponse } from 'src/http/ttp/ttp-api-list-response'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
-import { TtpService } from 'src/http/ttp/ttp-service'
-import useHttpQuery from 'src/http/use-http-query'
-import ttpStorage from 'src/utils/storage/ttp-storage'
+import useTtpLocationsQuery from 'src/http/ttp/use-ttp-locations-query'
 import getSearchListItemProps from 'ui/lib/search/get-search-list-item-props'
 import SearchInput from 'ui/lib/search/search-input'
 import SearchList from 'ui/lib/search/search-list'
@@ -28,51 +24,35 @@ export default function TtpLocationSearch({
   const [searchValue, setSearchValue] = useState('')
   const [inputValue, setInputValue] = useState('')
 
-  const allTtpLocationsQuery = useHttpQuery<TtpApiListResponse<TtpLocation>>({
-    url: TtpApi.locationsUrl(),
-    config: {
-      params: {
-        services: [TtpService.GlobalEntry],
-      },
-    },
-    queryOpts: {
-      cacheTime: Infinity,
-      staleTime: 60 * 60 * 1000,
-      refetchOnMount: false,
-      refetchOnWindowFocus: true,
-    },
-  })
-  const allTtpLocations = allTtpLocationsQuery.data?.records
+  const { ttpLocations } = useTtpLocationsQuery()
 
   const fuse = useMemo(() => {
-    return new Fuse(allTtpLocations || [], {
+    return new Fuse(ttpLocations || [], {
       keys: ['name', 'nameFull', 'city', 'province', 'country'],
       includeScore: true,
       minMatchCharLength: 2,
     })
-  }, [allTtpLocations])
-
-  const defaultTtpLocations = useMemo(() => {
-    const recentLocations = ttpStorage.getRecentLocations()
-    const locations =
-      recentLocations.length !== 0
-        ? recentLocations
-        : (allTtpLocations || []).slice(0, 10)
-
-    return locations.map((loc, index) => {
-      return {
-        item: loc,
-        refIndex: index,
-        score: 0,
-      } as Fuse.FuseResult<TtpLocation>
-    })
-  }, [allTtpLocations])
+  }, [ttpLocations])
 
   const searchMatches = useMemo(() => {
+    if (searchValue) {
+      return fuse.search(searchValue).slice(0, 10)
+    }
+
+    const locationsSortedByName = sortBy(ttpLocations || [], (loc) => {
+      return getTtpLocationDisplayName(loc)
+    })
+
     return searchValue
-      ? fuse.search(searchValue).slice(0, 10)
-      : defaultTtpLocations
-  }, [defaultTtpLocations, fuse, searchValue])
+      ? fuse.search(searchValue)
+      : locationsSortedByName.slice(0, 10).map((loc, index) => {
+          return {
+            item: loc,
+            refIndex: index,
+            score: 0,
+          } as Fuse.FuseResult<TtpLocation>
+        })
+  }, [fuse, searchValue, ttpLocations])
 
   const updateSearchValue = useMemo(() => {
     return debounce((newSearchValue) => {
@@ -104,7 +84,7 @@ export default function TtpLocationSearch({
 
   const handleTtpLocationClick: MouseEventHandler<HTMLLIElement> = (event) => {
     const locId = Number(event.currentTarget.getAttribute('data-ttp-loc-id'))
-    const selectedTtpLocation = (allTtpLocations || []).find((loc) => {
+    const selectedTtpLocation = (ttpLocations || []).find((loc) => {
       return loc.id === locId
     })
 
@@ -114,23 +94,6 @@ export default function TtpLocationSearch({
 
     onChange(selectedTtpLocation)
     onClose()
-  }
-
-  if (!allTtpLocations && allTtpLocationsQuery.error) {
-    return (
-      <Alert status="error">
-        <AlertIcon />
-        There was an error loading available locations.
-      </Alert>
-    )
-  }
-
-  if (!allTtpLocations) {
-    return (
-      <Box display="flex" justifyContent="center" p={5}>
-        <LoadingSpinner />
-      </Box>
-    )
   }
 
   return (

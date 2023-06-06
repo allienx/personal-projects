@@ -25,7 +25,11 @@ export default function TtpLocationSearchWrapper({
 
   return (
     <Box {...boxProps}>
-      <SearchButton shortcutKey="K" onClick={onOpen} />
+      <SearchButton
+        placeholder="Search locations"
+        shortcutKey="K"
+        onClick={onOpen}
+      />
 
       <Modal isOpen={isOpen} size={modalSize} onClose={onClose}>
         <ModalOverlay />
