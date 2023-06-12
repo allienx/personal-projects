@@ -5,7 +5,7 @@ export namespace TtpUserSlot {
     id: string
     userId: string
     locationId: string
-    location: TtpLocation | null
+    location: TtpLocation
     isEnabled: boolean
     slots: Slot[]
     notifications: Notification[]
@@ -23,7 +23,6 @@ export namespace TtpUserSlot {
 
   export enum NotificationType {
     Email = 'email',
-    Slack = 'slack',
   }
 
   export interface Slot {
@@ -36,10 +35,5 @@ export namespace TtpUserSlot {
     email: string
   }
 
-  export interface SlackNotification {
-    type: NotificationType.Slack
-    channel: string
-  }
-
-  export type Notification = EmailNotification | SlackNotification
+  export type Notification = EmailNotification
 }
