@@ -12,16 +12,20 @@ export type UseCreateUserSlotFormOnSuccess = (result: {
 }) => void
 
 export interface UseCreateUserSlotFormProps {
-  ttpLocation: TtpLocation
+  initialTtpLocation: TtpLocation
   onSuccess: UseCreateUserSlotFormOnSuccess
 }
 
 export default function useCreateUserSlotForm({
-  ttpLocation,
+  initialTtpLocation,
   onSuccess,
 }: UseCreateUserSlotFormProps) {
   const form = useForm<UseCreateUserSlotFormValues>({
-    defaultValues: getInitialValues(),
+    defaultValues: getInitialValues({ initialTtpLocation }),
+  })
+
+  const ttpLocationIdField = form.register('ttpLocationId', {
+    valueAsNumber: true,
   })
   const bodyField = form.register('body')
 
@@ -36,8 +40,8 @@ export default function useCreateUserSlotForm({
         method: 'POST',
         url: TtpApi.createUserSlotUrl(),
         data: {
-          locationId: ttpLocation.id,
           ...body,
+          locationId: data.ttpLocationId,
         },
       })
 
@@ -56,19 +60,24 @@ export default function useCreateUserSlotForm({
                 return `${paths}: ${message}`
               })
               .join('\n')
-          : 'An error ocurred while creating the record.',
+          : 'An error ocurred while creating the record. Have you already created a search for this location?',
       )
     }
   }
 
   return {
     ...form,
+    ttpLocationIdField,
     bodyField,
     handleSubmit: form.handleSubmit(onSubmit),
   }
 }
 
-function getInitialValues() {
+function getInitialValues({
+  initialTtpLocation,
+}: {
+  initialTtpLocation: TtpLocation
+}) {
   const sampleBody = {
     slots: [
       {
@@ -86,6 +95,7 @@ function getInitialValues() {
 
   return {
     apiErrorMessage: '',
+    ttpLocationId: initialTtpLocation.id,
     body: JSON.stringify(sampleBody, null, 2),
   }
 }

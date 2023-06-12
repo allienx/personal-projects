@@ -5,11 +5,10 @@ import {
   AlertTitle,
   Box,
   Button,
-  Flex,
   FormControl,
   FormLabel,
   ModalFooter,
-  Text,
+  Select,
   Textarea,
 } from '@chakra-ui/react'
 import useCreateUserSlotForm, {
@@ -17,22 +16,26 @@ import useCreateUserSlotForm, {
 } from 'src/forms/create-user-slot-form/use-create-user-slot-form'
 import getTtpLocationDisplayName from 'src/http/ttp/get-ttp-location-display-name'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
+import useTtpLocationsQuery from 'src/http/ttp/use-ttp-locations-query'
 
 export interface CreateUserSlotFormProps {
-  ttpLocation: TtpLocation
+  initialTtpLocation: TtpLocation
   onCancel: () => void
   onSuccess: UseCreateUserSlotFormOnSuccess
 }
 
 export default function CreateUserSlotForm({
-  ttpLocation,
+  initialTtpLocation,
   onCancel,
   onSuccess,
 }: CreateUserSlotFormProps) {
-  const { bodyField, formState, watch, handleSubmit } = useCreateUserSlotForm({
-    ttpLocation,
-    onSuccess,
-  })
+  const { ttpLocations } = useTtpLocationsQuery()
+
+  const { ttpLocationIdField, bodyField, formState, watch, handleSubmit } =
+    useCreateUserSlotForm({
+      initialTtpLocation,
+      onSuccess,
+    })
   const apiErrorMessage = watch('apiErrorMessage')
 
   return (
@@ -54,12 +57,18 @@ export default function CreateUserSlotForm({
         </Alert>
       )}
 
-      <Flex>
-        <Text fontWeight={600}>Location:</Text>
-        <Text color="gray.500" fontWeight={500} ml={2}>
-          {getTtpLocationDisplayName(ttpLocation)}
-        </Text>
-      </Flex>
+      <FormControl>
+        <FormLabel>Location</FormLabel>
+        <Select {...ttpLocationIdField}>
+          {ttpLocations.map((loc) => {
+            return (
+              <option key={loc.id} value={loc.id}>
+                {getTtpLocationDisplayName(loc)}
+              </option>
+            )
+          })}
+        </Select>
+      </FormControl>
 
       <FormControl mt={4}>
         <FormLabel>Body</FormLabel>

@@ -1,4 +1,7 @@
 import { UseQueryOptions } from '@tanstack/react-query/src/types'
+import { sortBy } from 'lodash'
+import { useMemo } from 'react'
+import getTtpLocationDisplayName from 'src/http/ttp/get-ttp-location-display-name'
 import TtpApi from 'src/http/ttp/ttp-api'
 import { TtpApiListResponse } from 'src/http/ttp/ttp-api-response'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
@@ -30,7 +33,12 @@ export default function useTtpLocationsQuery({
       ...queryOpts,
     },
   })
-  const ttpLocations = ttpLocationsQuery.data?.records as TtpLocation[]
+
+  const ttpLocations = useMemo(() => {
+    return sortBy(ttpLocationsQuery.data?.records || [], (loc) => {
+      return getTtpLocationDisplayName(loc)
+    })
+  }, [ttpLocationsQuery.data?.records])
 
   return {
     ttpLocationsQuery,

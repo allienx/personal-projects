@@ -54,8 +54,8 @@ export default function HomePage() {
 
       {ttpLocation && (
         <CreateUserSlotFormDialog
+          initialTtpLocation={ttpLocation}
           modalProps={{ isOpen: !!ttpLocation }}
-          ttpLocation={ttpLocation}
           onClose={(result) => {
             if (result.type === 'success') {
               queryClient.invalidateQueries([TtpApi.userSlotsUrl()])

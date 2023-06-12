@@ -26,14 +26,14 @@ export type FormDialogClose<D> =
   | FormDialogCloseCancel
 
 export interface CreateUserSlotFormDialogProps {
+  initialTtpLocation: TtpLocation
   modalProps: Omit<ModalProps, 'children' | 'onClose'>
-  ttpLocation: TtpLocation
   onClose: (result: FormDialogClose<TtpUserSlot.IndexRecord>) => void
 }
 
 export default function CreateUserSlotFormDialog({
+  initialTtpLocation,
   modalProps,
-  ttpLocation,
   onClose,
 }: CreateUserSlotFormDialogProps) {
   const modalSize = useBreakpointValue({ base: 'full', md: 'md' })
@@ -51,7 +51,7 @@ export default function CreateUserSlotFormDialog({
 
         <ModalBody>
           <CreateUserSlotForm
-            ttpLocation={ttpLocation}
+            initialTtpLocation={initialTtpLocation}
             onCancel={handleCancel}
             onSuccess={(result) => {
               onClose({
