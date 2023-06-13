@@ -1,4 +1,4 @@
-import { ReactNode, useMemo, useState } from 'react'
+import { ReactNode, useEffect, useMemo, useState } from 'react'
 import AuthContext, { AuthContextState } from './auth-context'
 import getOauthDefinitionHelper from './definitions/get-oauth-definition-helper'
 import { OauthDefinition } from './definitions/oauth-definition'
@@ -10,6 +10,7 @@ import useOauthRefreshToken, {
 export interface OauthProviderProps {
   definition: OauthDefinition
   loader?: ReactNode
+  onAccessTokenChange: (accessToken: string | null) => void
   children: ReactNode
 }
 
@@ -18,9 +19,11 @@ const initialAuthStorageState = authStorage.getData()
 export default function OauthProvider({
   definition,
   loader,
+  onAccessTokenChange,
   children,
 }: OauthProviderProps) {
   const [authState, setAuthState] = useState(initialAuthStorageState)
+  const [hasSetAccessToken, setHasAccessToken] = useState(false)
 
   const isAccessTokenExpired =
     !!authState?.atk && !!authState?.exp && new Date() > new Date(authState.exp)
@@ -42,6 +45,16 @@ export default function OauthProvider({
       },
     }
   }, [authState, definition])
+
+  useEffect(() => {
+    if (!hasSetAccessToken) {
+      setHasAccessToken(true)
+    }
+
+    onAccessTokenChange(authState?.atk || null)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authState?.atk, onAccessTokenChange])
 
   useOauthRefreshToken({
     definition,
@@ -70,11 +83,13 @@ export default function OauthProvider({
     },
   })
 
-  // Display a loading state while we are refreshing the access token.
+  // Display a loading state until we've set the access token
+  // or while we are refreshing the access token.
+  //
   // We will either:
   //   1. get a new access token OR
   //   2. will clear authState and isAccessTokenExpired will be false
-  if (isAccessTokenExpired && hasRefreshToken) {
+  if (!hasSetAccessToken || (isAccessTokenExpired && hasRefreshToken)) {
     return <div>{loader || null}</div>
   }
 

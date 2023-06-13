@@ -1,11 +1,20 @@
-import axios, { AxiosRequestConfig, CreateAxiosDefaults } from 'axios'
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  CreateAxiosDefaults,
+} from 'axios'
 import { stringify } from 'qs'
 
-class HttpClient {
-  http
+export default class HttpClient {
+  http: AxiosInstance
 
   constructor(config?: CreateAxiosDefaults) {
-    this.http = axios.create(config)
+    this.http = axios.create({
+      paramsSerializer: (params) => {
+        return stringify(params, { arrayFormat: 'brackets' })
+      },
+      ...config,
+    })
   }
 
   send<T = any>(config: AxiosRequestConfig) {
@@ -20,9 +29,3 @@ class HttpClient {
     delete this.http.defaults.headers.Authorization
   }
 }
-
-export const httpClient = new HttpClient({
-  paramsSerializer: (params) => {
-    return stringify(params, { arrayFormat: 'brackets' })
-  },
-})

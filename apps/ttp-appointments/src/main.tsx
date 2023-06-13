@@ -8,16 +8,22 @@ import { OauthDefinitionType } from 'react-oauth/lib/definitions/oauth-definitio
 import OauthProvider from 'react-oauth/lib/oauth-provider'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import LoadingSpinner from 'src/components/spinner/loading-spinner'
-import createQueryClient from 'src/config/create-query-client'
 import { EnvVars } from 'src/config/env-vars'
 import { theme } from 'src/config/theme/theme'
-import HttpClientInitializer from 'src/http/http-client-initializer'
+import { updateAppHttpClientToken } from 'src/http/app-http-client'
 import appRoutes from 'src/pages/_app-routes'
-
-const queryClient = createQueryClient()
+import createQueryClient from 'ui/lib/http/create-query-client'
 
 const container = document.getElementById('app')
 const root = createRoot(container!)
+
+const queryClient = createQueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: EnvVars.isDev ? 60 * 60 * 1000 : undefined,
+    },
+  },
+})
 
 const oauthDefinition: AwsCognitoDefinition = {
   type: OauthDefinitionType.AwsCognito,
@@ -41,9 +47,8 @@ root.render(
             <LoadingSpinner size="xl" />
           </Center>
         }
+        onAccessTokenChange={updateAppHttpClientToken}
       >
-        <HttpClientInitializer />
-
         <RouterProvider router={router} />
       </OauthProvider>
     </QueryClientProvider>

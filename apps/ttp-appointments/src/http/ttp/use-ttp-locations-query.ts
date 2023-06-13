@@ -1,12 +1,13 @@
 import { UseQueryOptions } from '@tanstack/react-query/src/types'
 import { sortBy } from 'lodash'
 import { useMemo } from 'react'
+import { appHttpClient } from 'src/http/app-http-client'
 import getTtpLocationDisplayName from 'src/http/ttp/get-ttp-location-display-name'
 import TtpApi from 'src/http/ttp/ttp-api'
 import { TtpApiListResponse } from 'src/http/ttp/ttp-api-response'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
 import { TtpService } from 'src/http/ttp/ttp-service'
-import useHttpQuery from 'src/http/use-http-query'
+import useHttpQuery from 'ui/lib/http/use-http-query'
 
 interface UseTtpLocationsQuery {
   queryOpts?: Omit<
@@ -19,6 +20,7 @@ export default function useTtpLocationsQuery({
   queryOpts,
 }: UseTtpLocationsQuery = {}) {
   const ttpLocationsQuery = useHttpQuery<TtpApiListResponse<TtpLocation>>({
+    httpClient: appHttpClient,
     url: TtpApi.locationsUrl(),
     config: {
       params: {

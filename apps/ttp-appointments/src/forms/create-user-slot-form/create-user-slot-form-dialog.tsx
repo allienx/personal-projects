@@ -53,10 +53,10 @@ export default function CreateUserSlotFormDialog({
           <CreateUserSlotForm
             initialTtpLocation={initialTtpLocation}
             onCancel={handleCancel}
-            onSuccess={(result) => {
+            onSuccess={({ httpResponse }) => {
               onClose({
                 type: 'success',
-                result: result.ttpUserSlot,
+                result: httpResponse.data.record,
               })
             }}
           />

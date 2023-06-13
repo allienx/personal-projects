@@ -16,12 +16,13 @@ import { parse } from 'date-fns'
 import format from 'date-fns/format'
 import { sortBy, startCase } from 'lodash'
 import LoadingSpinner from 'src/components/spinner/loading-spinner'
+import { appHttpClient } from 'src/http/app-http-client'
 import getTtpLocationCity from 'src/http/ttp/get-ttp-location-city'
 import getTtpLocationDisplayName from 'src/http/ttp/get-ttp-location-display-name'
 import TtpApi from 'src/http/ttp/ttp-api'
 import { TtpApiListResponse } from 'src/http/ttp/ttp-api-response'
 import { TtpUserSlot } from 'src/http/ttp/ttp-user-slot'
-import useHttpQuery from 'src/http/use-http-query'
+import useHttpQuery from 'ui/lib/http/use-http-query'
 
 interface TtpUserSlotListWrapperProps {
   boxProps?: BoxProps
@@ -33,6 +34,7 @@ export default function TtpUserSlotListWrapper({
   const ttpUserSlotsQuery = useHttpQuery<
     TtpApiListResponse<TtpUserSlot.IndexRecord>
   >({
+    httpClient: appHttpClient,
     url: TtpApi.userSlotsUrl(),
   })
   const { records: ttpUserSlots } = ttpUserSlotsQuery.data || {}

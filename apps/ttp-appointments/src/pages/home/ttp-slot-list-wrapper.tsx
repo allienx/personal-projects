@@ -15,14 +15,15 @@ import {
 } from '@chakra-ui/react'
 import useOauthState from 'react-oauth/lib/use-oauth-state'
 import LoadingSpinner from 'src/components/spinner/loading-spinner'
+import { appHttpClient } from 'src/http/app-http-client'
 import getTtpLocationCity from 'src/http/ttp/get-ttp-location-city'
 import getTtpLocationDisplayName from 'src/http/ttp/get-ttp-location-display-name'
 import TtpApi from 'src/http/ttp/ttp-api'
 import { TtpApiListResponse } from 'src/http/ttp/ttp-api-response'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
 import { TtpSlot } from 'src/http/ttp/ttp-slot'
-import useHttpQuery from 'src/http/use-http-query'
 import TtpSlotList from 'src/pages/home/ttp-slot-list'
+import useHttpQuery from 'ui/lib/http/use-http-query'
 
 interface TtpSlotListWrapperProps {
   ttpLocation: TtpLocation | null
@@ -34,6 +35,7 @@ export default function TtpSlotListWrapper({
   const { logout } = useOauthState()
 
   const ttpSlotsQuery = useHttpQuery<TtpApiListResponse<TtpSlot>>({
+    httpClient: appHttpClient,
     url: TtpApi.slotsUrl(),
     config: {
       params: { locationId: ttpLocation?.id },

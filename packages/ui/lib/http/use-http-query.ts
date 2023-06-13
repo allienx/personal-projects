@@ -1,15 +1,17 @@
 import { useQuery } from '@tanstack/react-query'
 import { UseQueryOptions } from '@tanstack/react-query/src/types'
 import { AxiosRequestConfig } from 'axios'
-import { httpClient } from 'src/http/http-client'
+import HttpClient from './http-client'
 
 interface UseHttpQueryOpts<D> {
+  httpClient: HttpClient
   url: string
   config?: Omit<AxiosRequestConfig<D>, 'url'>
   queryOpts?: Omit<UseQueryOptions<D, any, any, any>, 'queryKey' | 'queryFn'>
 }
 
 export default function useHttpQuery<D>({
+  httpClient,
   url,
   config,
   queryOpts,
