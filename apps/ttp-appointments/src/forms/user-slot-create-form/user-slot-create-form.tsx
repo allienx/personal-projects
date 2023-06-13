@@ -11,28 +11,28 @@ import {
   Select,
   Textarea,
 } from '@chakra-ui/react'
-import useCreateUserSlotForm, {
-  UseCreateUserSlotFormOnSuccess,
-} from 'src/forms/create-user-slot-form/use-create-user-slot-form'
+import useUserSlotCreateForm, {
+  UseUserSlotCreateFormOnSuccess,
+} from 'src/forms/user-slot-create-form/use-user-slot-create-form'
 import getTtpLocationDisplayName from 'src/http/ttp/get-ttp-location-display-name'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
 import useTtpLocationsQuery from 'src/http/ttp/use-ttp-locations-query'
 
-export interface CreateUserSlotFormProps {
+export interface UserSlotCreateFormProps {
   initialTtpLocation: TtpLocation
   onCancel: () => void
-  onSuccess: UseCreateUserSlotFormOnSuccess
+  onSuccess: UseUserSlotCreateFormOnSuccess
 }
 
-export default function CreateUserSlotForm({
+export default function UserSlotCreateForm({
   initialTtpLocation,
   onCancel,
   onSuccess,
-}: CreateUserSlotFormProps) {
+}: UserSlotCreateFormProps) {
   const { ttpLocations } = useTtpLocationsQuery()
 
   const { ttpLocationIdField, bodyField, formState, watch, handleSubmit } =
-    useCreateUserSlotForm({
+    useUserSlotCreateForm({
       initialTtpLocation,
       onSuccess,
     })

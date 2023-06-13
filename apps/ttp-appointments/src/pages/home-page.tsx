@@ -3,7 +3,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useCallback, useState } from 'react'
 import useOauthState from 'react-oauth/lib/use-oauth-state'
 import LogoIcon from 'src/components/icons/logo-icon'
-import CreateUserSlotFormDialog from 'src/forms/create-user-slot-form/create-user-slot-form-dialog'
+import UserSlotCreateFormDialog from 'src/forms/user-slot-create-form/user-slot-create-form-dialog'
 import TtpApi from 'src/http/ttp/ttp-api'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
 import HomeContentWrapper from 'src/pages/home/home-content-wrapper'
@@ -53,7 +53,7 @@ export default function HomePage() {
       </PageFooter>
 
       {ttpLocation && (
-        <CreateUserSlotFormDialog
+        <UserSlotCreateFormDialog
           initialTtpLocation={ttpLocation}
           modalProps={{ isOpen: !!ttpLocation }}
           onClose={(result) => {

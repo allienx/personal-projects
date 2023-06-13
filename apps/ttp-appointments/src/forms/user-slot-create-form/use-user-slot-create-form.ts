@@ -5,24 +5,24 @@ import { TtpLocation } from 'src/http/ttp/ttp-location'
 import { TtpUserSlot } from 'src/http/ttp/ttp-user-slot'
 import useApiForm, { UseApiFormSuccess } from 'ui/lib/form/use-api-form'
 
-export type UseCreateUserSlotFormValues = ReturnType<typeof getInitialValues>
+export type UseUserSlotCreateFormValues = ReturnType<typeof getInitialValues>
 
-export type UseCreateUserSlotFormOnSuccess = UseApiFormSuccess<
-  UseCreateUserSlotFormValues,
+export type UseUserSlotCreateFormOnSuccess = UseApiFormSuccess<
+  UseUserSlotCreateFormValues,
   TtpApiResponse<TtpUserSlot.IndexRecord>
 >
 
-export interface UseCreateUserSlotFormProps {
+export interface UseUserSlotCreateFormProps {
   initialTtpLocation: TtpLocation
-  onSuccess: UseCreateUserSlotFormOnSuccess
+  onSuccess: UseUserSlotCreateFormOnSuccess
 }
 
-export default function useCreateUserSlotForm({
+export default function useUserSlotCreateForm({
   initialTtpLocation,
   onSuccess,
-}: UseCreateUserSlotFormProps) {
+}: UseUserSlotCreateFormProps) {
   const apiForm = useApiForm<
-    UseCreateUserSlotFormValues,
+    UseUserSlotCreateFormValues,
     TtpApiResponse<TtpUserSlot.IndexRecord>
   >({
     httpClient: appHttpClient,

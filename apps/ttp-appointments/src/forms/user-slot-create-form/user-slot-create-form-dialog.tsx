@@ -8,7 +8,7 @@ import {
   ModalProps,
   useBreakpointValue,
 } from '@chakra-ui/react'
-import CreateUserSlotForm from 'src/forms/create-user-slot-form/create-user-slot-form'
+import UserSlotCreateForm from 'src/forms/user-slot-create-form/user-slot-create-form'
 import { TtpLocation } from 'src/http/ttp/ttp-location'
 import { TtpUserSlot } from 'src/http/ttp/ttp-user-slot'
 
@@ -25,17 +25,17 @@ export type FormDialogClose<D> =
   | FormDialogCloseSuccess<D>
   | FormDialogCloseCancel
 
-export interface CreateUserSlotFormDialogProps {
+export interface UserSlotCreateFormDialogProps {
   initialTtpLocation: TtpLocation
   modalProps: Omit<ModalProps, 'children' | 'onClose'>
   onClose: (result: FormDialogClose<TtpUserSlot.IndexRecord>) => void
 }
 
-export default function CreateUserSlotFormDialog({
+export default function UserSlotCreateFormDialog({
   initialTtpLocation,
   modalProps,
   onClose,
-}: CreateUserSlotFormDialogProps) {
+}: UserSlotCreateFormDialogProps) {
   const modalSize = useBreakpointValue({ base: 'full', md: 'md' })
 
   const handleCancel = () => {
@@ -50,7 +50,7 @@ export default function CreateUserSlotFormDialog({
         <ModalCloseButton />
 
         <ModalBody>
-          <CreateUserSlotForm
+          <UserSlotCreateForm
             initialTtpLocation={initialTtpLocation}
             onCancel={handleCancel}
             onSuccess={({ httpResponse }) => {
