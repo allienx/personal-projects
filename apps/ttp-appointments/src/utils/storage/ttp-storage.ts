@@ -1,7 +1,7 @@
 import { uniqBy } from 'lodash'
 import BrowserStorage from 'react-oauth/lib/storage/browser-storage'
 import hasStorage from 'react-oauth/lib/storage/has-storage'
-import { TtpLocation } from 'src/http/ttp/ttp-location'
+import { TtpLocation } from 'src/models/ttp-location/ttp-location'
 
 enum TtpStorageKeys {
   Root = 'ttp-storage',

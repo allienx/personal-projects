@@ -6,7 +6,7 @@ import {
   ModalOverlay,
   useBreakpointValue,
 } from '@chakra-ui/react'
-import { TtpLocation } from 'src/http/ttp/ttp-location'
+import { TtpLocation } from 'src/models/ttp-location/ttp-location'
 import TtpLocationSearch from 'src/pages/home/ttp-location-search'
 import SearchButton from 'ui/lib/search/search-button'
 import useSearchDisclosure from 'ui/lib/search/use-search-disclosure'

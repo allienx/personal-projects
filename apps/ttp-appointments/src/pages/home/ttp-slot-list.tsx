@@ -12,8 +12,8 @@ import format from 'date-fns/format'
 import parseISO from 'date-fns/parseISO'
 import { formatInTimeZone, zonedTimeToUtc } from 'date-fns-tz'
 import groupBy from 'lodash/groupBy'
-import { TtpLocation } from 'src/http/ttp/ttp-location'
-import { TtpSlot } from 'src/http/ttp/ttp-slot'
+import { TtpLocation } from 'src/models/ttp-location/ttp-location'
+import { TtpSlot } from 'src/models/ttp-slot/ttp-slot'
 
 interface TtpSlotListProps extends BoxProps {
   ttpLocation: TtpLocation

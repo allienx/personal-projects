@@ -1,4 +1,4 @@
-import { TtpLocation } from 'src/http/ttp/ttp-location'
+import { TtpLocation } from 'src/models/ttp-location/ttp-location'
 
 export namespace TtpUserSlot {
   export interface IndexRecord {

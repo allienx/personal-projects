@@ -1,7 +1,7 @@
 import { Alert, AlertIcon, Box, BoxProps } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 import LoadingSpinner from 'src/components/spinner/loading-spinner'
-import useTtpLocationsQuery from 'src/http/ttp/use-ttp-locations-query'
+import useTtpLocationsQuery from 'src/models/ttp-location/use-ttp-locations-query'
 
 interface HomeContentWrapperProps {
   boxProps?: BoxProps

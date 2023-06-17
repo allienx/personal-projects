@@ -11,28 +11,28 @@ import {
   Select,
   Textarea,
 } from '@chakra-ui/react'
-import useUserSlotCreateForm, {
-  UseUserSlotCreateFormOnSuccess,
-} from 'src/forms/user-slot-create-form/use-user-slot-create-form'
-import getTtpLocationDisplayName from 'src/http/ttp/get-ttp-location-display-name'
-import { TtpLocation } from 'src/http/ttp/ttp-location'
-import useTtpLocationsQuery from 'src/http/ttp/use-ttp-locations-query'
+import getTtpLocationDisplayName from 'src/models/ttp-location/get-ttp-location-display-name'
+import { TtpLocation } from 'src/models/ttp-location/ttp-location'
+import useTtpLocationsQuery from 'src/models/ttp-location/use-ttp-locations-query'
+import useTtpUserSlotCreateForm, {
+  UseTtpUserSlotCreateFormOnSuccess,
+} from 'src/models/ttp-user-slot/ttp-user-slot-create-form/use-ttp-user-slot-create-form'
 
-export interface UserSlotCreateFormProps {
+export interface TtpUserSlotCreateFormProps {
   initialTtpLocation: TtpLocation
   onCancel: () => void
-  onSuccess: UseUserSlotCreateFormOnSuccess
+  onSuccess: UseTtpUserSlotCreateFormOnSuccess
 }
 
-export default function UserSlotCreateForm({
+export default function TtpUserSlotCreateForm({
   initialTtpLocation,
   onCancel,
   onSuccess,
-}: UserSlotCreateFormProps) {
+}: TtpUserSlotCreateFormProps) {
   const { ttpLocations } = useTtpLocationsQuery()
 
   const { ttpLocationIdField, bodyField, formState, watch, handleSubmit } =
-    useUserSlotCreateForm({
+    useTtpUserSlotCreateForm({
       initialTtpLocation,
       onSuccess,
     })
