@@ -1,7 +1,9 @@
-import { Center, ChakraProvider } from '@chakra-ui/react'
 import '@fontsource/jetbrains-mono/400.css'
 import '@fontsource/jetbrains-mono/700.css'
+
+import { Center, ChakraProvider } from '@chakra-ui/react'
 import { QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { createRoot } from 'react-dom/client'
 import { AwsCognitoDefinition } from 'react-oauth/lib/definitions/aws-cognito-definition'
 import { OauthDefinitionType } from 'react-oauth/lib/definitions/oauth-definition-type'
@@ -51,6 +53,8 @@ root.render(
       >
         <RouterProvider router={router} />
       </OauthProvider>
+
+      <ReactQueryDevtools />
     </QueryClientProvider>
   </ChakraProvider>,
 )

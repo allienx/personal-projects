@@ -16,8 +16,14 @@ export default function useHttpQuery<D>({
   config,
   queryOpts,
 }: UseHttpQueryOpts<D>) {
+  const queryKey = [url]
+
+  if (config?.params) {
+    queryKey.push(config.params)
+  }
+
   return useQuery<D>({
-    queryKey: [url, config?.params],
+    queryKey,
     queryFn: async () => {
       const res = await httpClient.send<D>({
         method: 'GET',

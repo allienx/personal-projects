@@ -14,6 +14,10 @@ export default defineConfig({
         target:
           'https://rknra6vulmbgg6tsoh4reisvim0gmyzb.lambda-url.us-east-2.on.aws',
       }),
+      '/api/delete-user-slot': createLambdaProxy({
+        target:
+          'https://fijxsxbbg3mxpr6polueq4ez2m0kkcrc.lambda-url.us-east-2.on.aws',
+      }),
       '/api/locations': createLambdaProxy({
         target:
           'https://d7gqolvzu4eus4vys5x75lytpm0fgzxh.lambda-url.us-east-2.on.aws',
@@ -34,6 +38,10 @@ export default defineConfig({
       '/api/create-user-slot': createLambdaProxy({
         target:
           'https://rknra6vulmbgg6tsoh4reisvim0gmyzb.lambda-url.us-east-2.on.aws',
+      }),
+      '/api/delete-user-slot': createLambdaProxy({
+        target:
+          'https://fijxsxbbg3mxpr6polueq4ez2m0kkcrc.lambda-url.us-east-2.on.aws',
       }),
       '/api/locations': createLambdaProxy({
         target:

@@ -35,7 +35,7 @@ export default function useTtpUserSlotCreateForm({
       const body = JSON.parse(data.body)
 
       return {
-        url: TtpApi.createUserSlotUrl(),
+        url: TtpApi.userSlotCreateUrl(),
         data: {
           ...body,
           locationId: data.ttpLocationId,
@@ -73,7 +73,7 @@ function getInitialValues({
     notifications: [
       {
         type: 'email',
-        email: '',
+        email: 'myemail@mailinator.com',
       },
     ],
   }

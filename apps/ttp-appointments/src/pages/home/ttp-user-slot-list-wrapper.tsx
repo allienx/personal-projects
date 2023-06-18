@@ -1,4 +1,3 @@
-import { SettingsIcon } from '@chakra-ui/icons'
 import {
   Alert,
   AlertIcon,
@@ -8,7 +7,6 @@ import {
   CardBody,
   Center,
   Flex,
-  IconButton,
   Text,
   Tooltip,
 } from '@chakra-ui/react'
@@ -22,6 +20,7 @@ import { TtpApiListResponse } from 'src/http/ttp-api-response'
 import getTtpLocationCity from 'src/models/ttp-location/get-ttp-location-city'
 import getTtpLocationDisplayName from 'src/models/ttp-location/get-ttp-location-display-name'
 import { TtpUserSlot } from 'src/models/ttp-user-slot/ttp-user-slot'
+import TtpUserSlotActionMenu from 'src/models/ttp-user-slot/ttp-user-slot-action-menu/ttp-user-slot-action-menu'
 import useHttpQuery from 'ui/lib/http/use-http-query'
 
 interface TtpUserSlotListWrapperProps {
@@ -59,32 +58,31 @@ export default function TtpUserSlotListWrapper({
         ttpUserSlots &&
         sortBy(ttpUserSlots, (tus) =>
           getTtpLocationDisplayName(tus.location),
-        ).map((userSlot) => {
+        ).map((ttpUserSlot) => {
           return (
-            <Card key={userSlot.id} my={6}>
+            <Card key={ttpUserSlot.id} my={6}>
               <CardBody>
                 <Flex justifyContent="space-between">
                   <div>
                     <Text fontSize="lg" fontWeight={600}>
-                      {getTtpLocationDisplayName(userSlot.location)}
+                      {getTtpLocationDisplayName(ttpUserSlot.location)}
                     </Text>
                     <Text fontSize="sm">
-                      {getTtpLocationCity(userSlot.location)}
+                      {getTtpLocationCity(ttpUserSlot.location)}
                     </Text>
                   </div>
-                  <IconButton
-                    aria-label="See user slot menu"
-                    colorScheme="gray"
-                    icon={<SettingsIcon />}
-                    ml={3}
-                    mr={-2.5}
-                    mt={-1}
-                    size="sm"
-                    variant="ghost"
+                  <TtpUserSlotActionMenu
+                    menuButtonProps={{
+                      'aria-label': 'See user slot action menu',
+                      ml: 3,
+                      mr: -2.5,
+                      mt: -1,
+                    }}
+                    ttpUserSlot={ttpUserSlot}
                   />
                 </Flex>
 
-                {userSlot.slots.map((slot) => {
+                {ttpUserSlot.slots.map((slot) => {
                   return (
                     <Text fontSize="sm" key={slot.dayOfWeek} mt={2}>
                       {startCase(slot.dayOfWeek)}:{' '}
@@ -98,9 +96,11 @@ export default function TtpUserSlotListWrapper({
                 })}
 
                 <Flex alignItems="center" mt={2}>
-                  <Tooltip label={userSlot.isEnabled ? 'Enabled' : 'Disabled'}>
+                  <Tooltip
+                    label={ttpUserSlot.isEnabled ? 'Enabled' : 'Disabled'}
+                  >
                     <Box
-                      bgColor={userSlot.isEnabled ? '#06C019' : '#EF0000'}
+                      bgColor={ttpUserSlot.isEnabled ? '#06C019' : '#EF0000'}
                       borderRadius="50%"
                       height={3}
                       mt={0.5}
@@ -108,7 +108,7 @@ export default function TtpUserSlotListWrapper({
                     />
                   </Tooltip>
                   <Text fontSize="sm" ml={2}>
-                    {userSlot.notifications.map((n) => n.email).join(', ')}
+                    {ttpUserSlot.notifications.map((n) => n.email).join(', ')}
                   </Text>
                 </Flex>
               </CardBody>
