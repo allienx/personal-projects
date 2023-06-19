@@ -11,9 +11,11 @@ import {
 import { useQueryClient } from '@tanstack/react-query'
 import { MouseEventHandler, useState } from 'react'
 import TtpApi from 'src/http/ttp-api'
-import { TtpApiListResponse } from 'src/http/ttp-api-response'
+import updateTtpApiListResponse from 'src/http/update-ttp-api-list-response'
 import { TtpUserSlot } from 'src/models/ttp-user-slot/ttp-user-slot'
 import TtpUserSlotDeleteFormModal from 'src/models/ttp-user-slot/ttp-user-slot-delete-form/ttp-user-slot-delete-form-modal'
+import TtpUserSlotDisableFormModal from 'src/models/ttp-user-slot/ttp-user-slot-disable-form/ttp-user-slot-disable-form-modal'
+import TtpUserSlotEnableFormModal from 'src/models/ttp-user-slot/ttp-user-slot-enable-form/ttp-user-slot-enable-form-modal'
 
 enum TtpUserSlotAction {
   Edit = 'tus-action-edit',
@@ -87,25 +89,56 @@ export default function TtpUserSlotActionMenu({
         </MenuList>
       </Menu>
 
+      {activeAction === TtpUserSlotAction.Enable && (
+        <TtpUserSlotEnableFormModal
+          ttpUserSlot={ttpUserSlot}
+          onClose={(context) => {
+            if (context.type === 'success') {
+              queryClient.setQueryData(
+                [TtpApi.userSlotsUrl()],
+                updateTtpApiListResponse({
+                  actionType: 'replace',
+                  record: context.result.record,
+                }),
+              )
+            }
+
+            setActiveAction(null)
+          }}
+        />
+      )}
+
+      {activeAction === TtpUserSlotAction.Disable && (
+        <TtpUserSlotDisableFormModal
+          ttpUserSlot={ttpUserSlot}
+          onClose={(context) => {
+            if (context.type === 'success') {
+              queryClient.setQueryData(
+                [TtpApi.userSlotsUrl()],
+                updateTtpApiListResponse({
+                  actionType: 'replace',
+                  record: context.result.record,
+                }),
+              )
+            }
+
+            setActiveAction(null)
+          }}
+        />
+      )}
+
       {activeAction === TtpUserSlotAction.Delete && (
         <TtpUserSlotDeleteFormModal
           ttpUserSlot={ttpUserSlot}
           onClose={(result) => {
             if (result.type === 'success') {
-              queryClient.setQueryData<
-                TtpApiListResponse<TtpUserSlot.IndexRecord>
-              >([TtpApi.userSlotsUrl()], (data) => {
-                if (!data) {
-                  return data
-                }
-
-                return {
-                  ...data,
-                  records: data.records.filter(
-                    (tus) => tus.id !== ttpUserSlot.id,
-                  ),
-                }
-              })
+              queryClient.setQueryData(
+                [TtpApi.userSlotsUrl()],
+                updateTtpApiListResponse({
+                  actionType: 'remove',
+                  record: ttpUserSlot,
+                }),
+              )
             }
 
             setActiveAction(null)

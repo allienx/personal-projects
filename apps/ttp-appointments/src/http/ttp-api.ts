@@ -30,4 +30,10 @@ export default class TtpApi {
       ? 'https://fijxsxbbg3mxpr6polueq4ez2m0kkcrc.lambda-url.us-east-2.on.aws'
       : '/api/delete-user-slot'
   }
+
+  static userSlotUpdateUrl() {
+    return EnvVars.isProd
+      ? 'https://mbat4pivrfukhv5qpjtct2x3440ayozg.lambda-url.us-east-2.on.aws'
+      : '/api/update-user-slot'
+  }
 }

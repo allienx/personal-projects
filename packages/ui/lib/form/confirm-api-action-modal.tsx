@@ -45,7 +45,7 @@ export interface ConfirmApiActionModalProps<D> {
   modalFooterProps?: ModalFooterProps
   modalProps?: Omit<ModalProps, 'isOpen' | 'onClose' | 'children'>
   title: ReactNode
-  onClose: (result: FormDialogClose<D>) => void
+  onClose: (context: FormDialogClose<D>) => void
   children: ReactNode
 }
 
