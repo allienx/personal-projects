@@ -44,7 +44,7 @@ export default function TtpUserSlotCreateForm({
         <Alert
           alignItems="flex-start"
           flexDirection="row"
-          mb={6}
+          mb={4}
           status="error"
         >
           <div>
@@ -73,20 +73,20 @@ export default function TtpUserSlotCreateForm({
       <FormControl mt={4}>
         <FormLabel>Body</FormLabel>
         <Textarea fontFamily="mono" rows={20} size="sm" {...bodyField} />
-
-        <ModalFooter px={0}>
-          <Button onClick={onCancel}>Cancel</Button>
-          <Button
-            colorScheme="teal"
-            isLoading={formState.isSubmitting}
-            ml={3}
-            type="submit"
-            variant="solid"
-          >
-            Save
-          </Button>
-        </ModalFooter>
       </FormControl>
+
+      <ModalFooter px={0} py={4}>
+        <Button onClick={onCancel}>Cancel</Button>
+        <Button
+          colorScheme="teal"
+          isLoading={formState.isSubmitting}
+          ml={3}
+          type="submit"
+          variant="solid"
+        >
+          Save
+        </Button>
+      </ModalFooter>
     </form>
   )
 }

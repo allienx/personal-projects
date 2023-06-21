@@ -5,7 +5,7 @@ import useOauthState from 'react-oauth/lib/use-oauth-state'
 import LogoIcon from 'src/components/icons/logo-icon'
 import TtpApi from 'src/http/ttp-api'
 import { TtpLocation } from 'src/models/ttp-location/ttp-location'
-import TtpUserSlotCreateFormDialog from 'src/models/ttp-user-slot/ttp-user-slot-create-form/ttp-user-slot-create-form-dialog'
+import TtpUserSlotCreateFormModal from 'src/models/ttp-user-slot/ttp-user-slot-create-form/ttp-user-slot-create-form-modal'
 import HomeContentWrapper from 'src/pages/home/home-content-wrapper'
 import TtpLocationSearchWrapper from 'src/pages/home/ttp-location-search-wrapper'
 import TtpUserSlotListWrapper from 'src/pages/home/ttp-user-slot-list-wrapper'
@@ -53,7 +53,7 @@ export default function HomePage() {
       </PageFooter>
 
       {ttpLocation && (
-        <TtpUserSlotCreateFormDialog
+        <TtpUserSlotCreateFormModal
           initialTtpLocation={ttpLocation}
           modalProps={{ isOpen: !!ttpLocation }}
           onClose={(result) => {

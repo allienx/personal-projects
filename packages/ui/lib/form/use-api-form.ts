@@ -38,7 +38,8 @@ export default function useApiForm<V extends ApiFormValues, D>({
 
       onSuccess({ formValues: data, httpResponse: res })
     } catch (err: any) {
-      const issues = err.response?.data?.metadata?.issues || []
+      const metadata = err.response?.data?.metadata || {}
+      const issues = metadata?.issues || []
       const apiErrorMessage =
         issues.length > 0
           ? issues
@@ -49,7 +50,7 @@ export default function useApiForm<V extends ApiFormValues, D>({
                 return `${paths}: ${message}`
               })
               .join('\n')
-          : 'An error ocurred while creating the record. Have you already created a search for this location?'
+          : metadata.message || 'Encountered an unexpected error.'
 
       // @ts-ignore
       form.setValue('apiErrorMessage', apiErrorMessage)
