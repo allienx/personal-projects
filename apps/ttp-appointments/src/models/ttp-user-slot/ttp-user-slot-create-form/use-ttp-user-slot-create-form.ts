@@ -35,6 +35,7 @@ export default function useTtpUserSlotCreateForm({
       const body = JSON.parse(data.body)
 
       return {
+        method: 'POST',
         url: TtpApi.userSlotCreateUrl(),
         data: {
           ...body,

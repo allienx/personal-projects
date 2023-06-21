@@ -31,10 +31,7 @@ export default function useApiForm<V extends ApiFormValues, D>({
     form.setValue('apiErrorMessage', '')
 
     try {
-      const res = await httpClient.send<D>({
-        method: 'POST',
-        ...getHttpConfig(data),
-      })
+      const res = await httpClient.send<D>(getHttpConfig(data))
 
       onSuccess({ formValues: data, httpResponse: res })
     } catch (err: any) {

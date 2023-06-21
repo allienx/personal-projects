@@ -60,6 +60,10 @@ export default function ConfirmApiActionModal<D = any>({
   const apiErrorMessage = watch('apiErrorMessage')
 
   const handleCancel = () => {
+    if (formState.isSubmitting) {
+      return
+    }
+
     onClose({ type: 'cancel' })
   }
 
@@ -86,7 +90,9 @@ export default function ConfirmApiActionModal<D = any>({
         {children}
 
         <ModalFooter px={0} py={4} {...modalFooterProps}>
-          <Button onClick={handleCancel}>{ctaNo}</Button>
+          <Button disabled={formState.isSubmitting} onClick={handleCancel}>
+            {ctaNo}
+          </Button>
           <Button
             colorScheme={colorScheme}
             isLoading={formState.isSubmitting}

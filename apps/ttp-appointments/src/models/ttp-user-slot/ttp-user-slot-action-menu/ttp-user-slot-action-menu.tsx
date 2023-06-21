@@ -15,6 +15,7 @@ import updateTtpApiListResponse from 'src/http/update-ttp-api-list-response'
 import { TtpUserSlot } from 'src/models/ttp-user-slot/ttp-user-slot'
 import TtpUserSlotDeleteFormModal from 'src/models/ttp-user-slot/ttp-user-slot-delete-form/ttp-user-slot-delete-form-modal'
 import TtpUserSlotDisableFormModal from 'src/models/ttp-user-slot/ttp-user-slot-disable-form/ttp-user-slot-disable-form-modal'
+import TtpUserSlotEditFormModal from 'src/models/ttp-user-slot/ttp-user-slot-edit-form/ttp-user-slot-edit-form-modal'
 import TtpUserSlotEnableFormModal from 'src/models/ttp-user-slot/ttp-user-slot-enable-form/ttp-user-slot-enable-form-modal'
 
 enum TtpUserSlotAction {
@@ -88,6 +89,25 @@ export default function TtpUserSlotActionMenu({
           <MenuItem data-id={TtpUserSlotAction.Delete}>Delete</MenuItem>
         </MenuList>
       </Menu>
+
+      {activeAction === TtpUserSlotAction.Edit && (
+        <TtpUserSlotEditFormModal
+          ttpUserSlot={ttpUserSlot}
+          onClose={(context) => {
+            if (context.type === 'success') {
+              queryClient.setQueryData(
+                [TtpApi.userSlotsUrl()],
+                updateTtpApiListResponse({
+                  actionType: 'replace',
+                  record: context.result.record,
+                }),
+              )
+            }
+
+            setActiveAction(null)
+          }}
+        />
+      )}
 
       {activeAction === TtpUserSlotAction.Enable && (
         <TtpUserSlotEnableFormModal

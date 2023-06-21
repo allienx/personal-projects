@@ -1,34 +1,33 @@
 import { TtpApiResponse } from 'src/http/ttp-api-response'
-import { TtpLocation } from 'src/models/ttp-location/ttp-location'
 import { TtpUserSlot } from 'src/models/ttp-user-slot/ttp-user-slot'
-import TtpUserSlotCreateForm from 'src/models/ttp-user-slot/ttp-user-slot-create-form/ttp-user-slot-create-form'
+import TtpUserSlotEditForm from 'src/models/ttp-user-slot/ttp-user-slot-edit-form/ttp-user-slot-edit-form'
 import ApiFormModal, { ApiFormModalProps } from 'ui/lib/form/api-form-modal'
 
-export interface TtpUserSlotCreateFormModalProps
+export interface TtpUserSlotEditFormModalProps
   extends Pick<
     ApiFormModalProps<TtpApiResponse<TtpUserSlot.IndexRecord>>,
     'modalProps' | 'onClose'
   > {
-  initialTtpLocation: TtpLocation
+  ttpUserSlot: TtpUserSlot.IndexRecord
 }
 
-export default function TtpUserSlotCreateFormModal({
-  initialTtpLocation,
+export default function TtpUserSlotEditFormModal({
+  ttpUserSlot,
   onClose,
   ...apiFormModalProps
-}: TtpUserSlotCreateFormModalProps) {
+}: TtpUserSlotEditFormModalProps) {
   const handleCancel = () => {
     onClose({ type: 'cancel' })
   }
 
   return (
     <ApiFormModal
-      title="Create Appointment Search"
+      title="Edit Appointment Search"
       onClose={onClose}
       {...apiFormModalProps}
     >
-      <TtpUserSlotCreateForm
-        initialTtpLocation={initialTtpLocation}
+      <TtpUserSlotEditForm
+        ttpUserSlot={ttpUserSlot}
         onCancel={handleCancel}
         onSuccess={({ httpResponse }) => {
           onClose({

@@ -4,7 +4,7 @@ export default function updateTtpApiListResponse({
   actionType,
   record,
 }: {
-  actionType: 'replace' | 'remove'
+  actionType: 'add' | 'replace' | 'remove'
   record: any
 }) {
   return (data: TtpApiListResponse<any> | undefined) => {
@@ -12,18 +12,29 @@ export default function updateTtpApiListResponse({
       return data
     }
 
-    if (actionType === 'replace') {
-      return {
-        ...data,
-        records: data.records.reduce((arr, val) => {
-          return [...arr, val.id === record.id ? record : val]
-        }, [] as any[]),
-      }
-    }
+    switch (actionType) {
+      case 'add':
+        return {
+          ...data,
+          records: [...data.records, record],
+        }
 
-    return {
-      ...data,
-      records: data.records.filter((val) => val.id !== record.id),
+      case 'replace':
+        return {
+          ...data,
+          records: data.records.reduce((arr, val) => {
+            return [...arr, val.id === record.id ? record : val]
+          }, [] as any[]),
+        }
+
+      case 'remove':
+        return {
+          ...data,
+          records: data.records.filter((val) => val.id !== record.id),
+        }
+
+      default:
+        return data
     }
   }
 }

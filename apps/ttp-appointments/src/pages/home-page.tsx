@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react'
 import useOauthState from 'react-oauth/lib/use-oauth-state'
 import LogoIcon from 'src/components/icons/logo-icon'
 import TtpApi from 'src/http/ttp-api'
+import updateTtpApiListResponse from 'src/http/update-ttp-api-list-response'
 import { TtpLocation } from 'src/models/ttp-location/ttp-location'
 import TtpUserSlotCreateFormModal from 'src/models/ttp-user-slot/ttp-user-slot-create-form/ttp-user-slot-create-form-modal'
 import HomeContentWrapper from 'src/pages/home/home-content-wrapper'
@@ -55,10 +56,17 @@ export default function HomePage() {
       {ttpLocation && (
         <TtpUserSlotCreateFormModal
           initialTtpLocation={ttpLocation}
-          modalProps={{ isOpen: !!ttpLocation }}
-          onClose={(result) => {
-            if (result.type === 'success') {
-              queryClient.invalidateQueries([TtpApi.userSlotsUrl()])
+          onClose={(context) => {
+            if (context.type === 'success') {
+              // queryClient.invalidateQueries([TtpApi.userSlotsUrl()])
+
+              queryClient.setQueryData(
+                [TtpApi.userSlotsUrl()],
+                updateTtpApiListResponse({
+                  actionType: 'add',
+                  record: context.result.record,
+                }),
+              )
             }
 
             setTtpLocation(null)
