@@ -68,7 +68,7 @@ export default function ConfirmApiActionModal<D = any>({
   }
 
   return (
-    <ApiFormModal onClose={onClose} {...apiFormModalProps}>
+    <ApiFormModal onClose={handleCancel} {...apiFormModalProps}>
       <form onSubmit={handleSubmit}>
         {apiErrorMessage && (
           <Alert
@@ -90,7 +90,7 @@ export default function ConfirmApiActionModal<D = any>({
         {children}
 
         <ModalFooter px={0} py={4} {...modalFooterProps}>
-          <Button disabled={formState.isSubmitting} onClick={handleCancel}>
+          <Button isDisabled={formState.isSubmitting} onClick={handleCancel}>
             {ctaNo}
           </Button>
           <Button

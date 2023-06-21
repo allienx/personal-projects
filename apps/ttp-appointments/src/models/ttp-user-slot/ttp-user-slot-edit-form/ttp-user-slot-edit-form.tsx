@@ -64,7 +64,9 @@ export default function TtpUserSlotEditForm({
       </FormControl>
 
       <ModalFooter px={0} py={4}>
-        <Button onClick={onCancel}>Cancel</Button>
+        <Button isDisabled={formState.isSubmitting} onClick={onCancel}>
+          Cancel
+        </Button>
         <Button
           colorScheme="teal"
           isLoading={formState.isSubmitting}
