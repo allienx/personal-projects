@@ -6,10 +6,10 @@ import LogoIcon from 'src/components/icons/logo-icon'
 import TtpApi from 'src/http/ttp-api'
 import updateTtpApiListResponse from 'src/http/update-ttp-api-list-response'
 import { TtpLocation } from 'src/models/ttp-location/ttp-location'
-import TtpUserSlotCreateFormModal from 'src/models/ttp-user-slot/ttp-user-slot-create-form/ttp-user-slot-create-form-modal'
+import TtpUserTripCreateFormModal from 'src/models/ttp-user-trip/ttp-user-trip-create-form/ttp-user-trip-create-form-modal'
 import HomeContentWrapper from 'src/pages/home/home-content-wrapper'
 import TtpLocationSearchWrapper from 'src/pages/home/ttp-location-search-wrapper'
-import TtpUserSlotListWrapper from 'src/pages/home/ttp-user-slot-list-wrapper'
+import TtpUserTripListWrapper from 'src/pages/home/ttp-user-trip-list-wrapper'
 import ttpStorage from 'src/utils/storage/ttp-storage'
 import { AboutInfo, PageContent, PageFooter, PageHeader, PageWrapper } from 'ui'
 
@@ -36,7 +36,7 @@ export default function HomePage() {
         <HomeContentWrapper boxProps={{ as: PageContent }}>
           <TtpLocationSearchWrapper onChange={handleTtpLocationChange} />
 
-          <TtpUserSlotListWrapper boxProps={{ mt: 8 }} />
+          <TtpUserTripListWrapper boxProps={{ mt: 8 }} />
         </HomeContentWrapper>
       ) : (
         <PageContent alignItems="center" display="flex" justifyContent="center">
@@ -54,14 +54,12 @@ export default function HomePage() {
       </PageFooter>
 
       {ttpLocation && (
-        <TtpUserSlotCreateFormModal
+        <TtpUserTripCreateFormModal
           initialTtpLocation={ttpLocation}
           onClose={(context) => {
             if (context.type === 'success') {
-              // queryClient.invalidateQueries([TtpApi.userSlotsUrl()])
-
               queryClient.setQueryData(
-                [TtpApi.userSlotsUrl()],
+                [TtpApi.userTripsUrl()],
                 updateTtpApiListResponse({
                   actionType: 'add',
                   record: context.result.record,

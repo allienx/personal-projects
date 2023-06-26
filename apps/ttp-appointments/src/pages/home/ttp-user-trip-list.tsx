@@ -12,19 +12,19 @@ import format from 'date-fns/format'
 import { sortBy, startCase } from 'lodash'
 import getTtpLocationCity from 'src/models/ttp-location/get-ttp-location-city'
 import getTtpLocationDisplayName from 'src/models/ttp-location/get-ttp-location-display-name'
-import { TtpUserSlot } from 'src/models/ttp-user-slot/ttp-user-slot'
-import TtpUserSlotActionMenu from 'src/models/ttp-user-slot/ttp-user-slot-action-menu/ttp-user-slot-action-menu'
+import { TtpUserTrip } from 'src/models/ttp-user-trip/ttp-user-trip'
+import TtpUserTripActionMenu from 'src/models/ttp-user-trip/ttp-user-trip-action-menu/ttp-user-trip-action-menu'
 
-export interface TtpUserSlotListProps {
+export interface TtpUserTripListProps {
   boxProps?: BoxProps
-  ttpUserSlots: TtpUserSlot.IndexRecord[]
+  ttpUserTrips: TtpUserTrip.IndexRecord[]
 }
 
-export default function TtpUserSlotList({
+export default function TtpUserTripList({
   boxProps,
-  ttpUserSlots,
-}: TtpUserSlotListProps) {
-  const sortedUserSlots = sortBy(ttpUserSlots, (tus) =>
+  ttpUserTrips,
+}: TtpUserTripListProps) {
+  const sortedUserSlots = sortBy(ttpUserTrips, (tus) =>
     getTtpLocationDisplayName(tus.location),
   )
 
@@ -36,31 +36,31 @@ export default function TtpUserSlotList({
           get started!
         </Text>
       ) : (
-        sortedUserSlots.map((ttpUserSlot) => {
+        sortedUserSlots.map((ttpUserTrip) => {
           return (
-            <Card key={ttpUserSlot.id} my={6}>
+            <Card key={ttpUserTrip.id} my={6}>
               <CardBody>
                 <Flex justifyContent="space-between">
                   <div>
                     <Text fontSize="lg" fontWeight={600}>
-                      {getTtpLocationDisplayName(ttpUserSlot.location)}
+                      {getTtpLocationDisplayName(ttpUserTrip.location)}
                     </Text>
                     <Text fontSize="sm">
-                      {getTtpLocationCity(ttpUserSlot.location)}
+                      {getTtpLocationCity(ttpUserTrip.location)}
                     </Text>
                   </div>
-                  <TtpUserSlotActionMenu
+                  <TtpUserTripActionMenu
                     menuButtonProps={{
                       'aria-label': 'See user slot action menu',
                       ml: 3,
                       mr: -2.5,
                       mt: -1,
                     }}
-                    ttpUserSlot={ttpUserSlot}
+                    ttpUserTrip={ttpUserTrip}
                   />
                 </Flex>
 
-                {ttpUserSlot.slots.map((slot) => {
+                {ttpUserTrip.slots.map((slot) => {
                   return (
                     <Text fontSize="sm" key={slot.dayOfWeek} mt={2}>
                       {startCase(slot.dayOfWeek)}:{' '}
@@ -75,10 +75,10 @@ export default function TtpUserSlotList({
 
                 <Flex alignItems="center" mt={2}>
                   <Tooltip
-                    label={ttpUserSlot.isEnabled ? 'Enabled' : 'Disabled'}
+                    label={ttpUserTrip.isEnabled ? 'Enabled' : 'Disabled'}
                   >
                     <Box
-                      bgColor={ttpUserSlot.isEnabled ? '#06C019' : '#EF0000'}
+                      bgColor={ttpUserTrip.isEnabled ? '#06C019' : '#EF0000'}
                       borderRadius="50%"
                       height={3}
                       mt={0.5}
@@ -86,7 +86,7 @@ export default function TtpUserSlotList({
                     />
                   </Tooltip>
                   <Text fontSize="sm" ml={2}>
-                    {ttpUserSlot.notifications.map((n) => n.email).join(', ')}
+                    {ttpUserTrip.notifications.map((n) => n.email).join(', ')}
                   </Text>
                 </Flex>
               </CardBody>

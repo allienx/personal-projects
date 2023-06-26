@@ -2,23 +2,23 @@ import { Text } from '@chakra-ui/react'
 import { appHttpClient } from 'src/http/app-http-client'
 import TtpApi from 'src/http/ttp-api'
 import getTtpLocationDisplayName from 'src/models/ttp-location/get-ttp-location-display-name'
-import { TtpUserSlot } from 'src/models/ttp-user-slot/ttp-user-slot'
+import { TtpUserTrip } from 'src/models/ttp-user-trip/ttp-user-trip'
 import ConfirmApiActionModal, {
   ConfirmApiActionModalProps,
 } from 'ui/lib/form/confirm-api-action-modal'
 
-export interface TtpUserSlotDeleteFormModalProps
+export interface TtpUserTripDeleteFormModalProps
   extends Pick<
     ConfirmApiActionModalProps<''>,
     'modalFooterProps' | 'modalProps' | 'onClose'
   > {
-  ttpUserSlot: TtpUserSlot.IndexRecord
+  ttpUserTrip: TtpUserTrip.IndexRecord
 }
 
-export default function TtpUserSlotDeleteFormModal({
-  ttpUserSlot,
+export default function TtpUserTripDeleteFormModal({
+  ttpUserTrip,
   ...props
-}: TtpUserSlotDeleteFormModalProps) {
+}: TtpUserTripDeleteFormModalProps) {
   return (
     <ConfirmApiActionModal
       colorScheme="red"
@@ -27,9 +27,9 @@ export default function TtpUserSlotDeleteFormModal({
       httpClient={appHttpClient}
       httpConfig={{
         method: 'DELETE',
-        url: TtpApi.userSlotDeleteUrl(),
+        url: TtpApi.userTripDeleteUrl(),
         data: {
-          userSlotId: ttpUserSlot.id,
+          userTripId: ttpUserTrip.id,
         },
       }}
       title="Delete Appointment Search?"
@@ -37,7 +37,7 @@ export default function TtpUserSlotDeleteFormModal({
     >
       <Text color="gray">
         Are you sure you want to delete the appointment search for{' '}
-        <strong>{getTtpLocationDisplayName(ttpUserSlot.location)}</strong>?
+        <strong>{getTtpLocationDisplayName(ttpUserTrip.location)}</strong>?
       </Text>
       <Text color="gray" mt={1}>
         This action cannot be undone and will stop all notifications for this

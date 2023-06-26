@@ -7,19 +7,19 @@ export default class TtpApi {
     return 'https://me63q6uiwxolyxtkgk75naatxy0jfmsa.lambda-url.us-east-2.on.aws'
   }
 
-  static userSlotsUrl() {
-    return 'https://pykmienm6mzkuxgdmvgtztw4dy0qzlmh.lambda-url.us-east-2.on.aws'
+  static userTripsUrl() {
+    return 'https://mxfptk3stghcjaimu7jrisgzwm0levks.lambda-url.us-east-2.on.aws'
   }
 
-  static userSlotCreateUrl() {
-    return 'https://rknra6vulmbgg6tsoh4reisvim0gmyzb.lambda-url.us-east-2.on.aws'
+  static userTripCreateUrl() {
+    return 'https://is22ypsdgpehtkgzy4weegunfm0odeys.lambda-url.us-east-2.on.aws'
   }
 
-  static userSlotDeleteUrl() {
-    return 'https://fijxsxbbg3mxpr6polueq4ez2m0kkcrc.lambda-url.us-east-2.on.aws'
+  static userTripDeleteUrl() {
+    return 'https://5aparrryd3mjqqla3syrvyhgfa0ggvxn.lambda-url.us-east-2.on.aws'
   }
 
-  static userSlotUpdateUrl() {
-    return 'https://mbat4pivrfukhv5qpjtct2x3440ayozg.lambda-url.us-east-2.on.aws'
+  static userTripUpdateUrl() {
+    return 'https://tjwphreiqbtisdy34ijazggw740xdtrx.lambda-url.us-east-2.on.aws'
   }
 }

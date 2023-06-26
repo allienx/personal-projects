@@ -3,23 +3,23 @@ import { appHttpClient } from 'src/http/app-http-client'
 import TtpApi from 'src/http/ttp-api'
 import { TtpApiResponse } from 'src/http/ttp-api-response'
 import getTtpLocationDisplayName from 'src/models/ttp-location/get-ttp-location-display-name'
-import { TtpUserSlot } from 'src/models/ttp-user-slot/ttp-user-slot'
+import { TtpUserTrip } from 'src/models/ttp-user-trip/ttp-user-trip'
 import ConfirmApiActionModal, {
   ConfirmApiActionModalProps,
 } from 'ui/lib/form/confirm-api-action-modal'
 
-export interface TtpUserSlotDisableFormModalProps
+export interface TtpUserTripDisableFormModalProps
   extends Pick<
-    ConfirmApiActionModalProps<TtpApiResponse<TtpUserSlot.IndexRecord>>,
+    ConfirmApiActionModalProps<TtpApiResponse<TtpUserTrip.IndexRecord>>,
     'modalFooterProps' | 'modalProps' | 'onClose'
   > {
-  ttpUserSlot: TtpUserSlot.IndexRecord
+  ttpUserTrip: TtpUserTrip.IndexRecord
 }
 
-export default function TtpUserSlotDisableFormModal({
-  ttpUserSlot,
+export default function TtpUserTripDisableFormModal({
+  ttpUserTrip,
   ...props
-}: TtpUserSlotDisableFormModalProps) {
+}: TtpUserTripDisableFormModalProps) {
   return (
     <ConfirmApiActionModal
       colorScheme="red"
@@ -28,9 +28,9 @@ export default function TtpUserSlotDisableFormModal({
       httpClient={appHttpClient}
       httpConfig={{
         method: 'PUT',
-        url: TtpApi.userSlotUpdateUrl(),
+        url: TtpApi.userTripUpdateUrl(),
         data: {
-          userSlotId: ttpUserSlot.id,
+          userTripId: ttpUserTrip.id,
           isEnabled: false,
         },
       }}
@@ -39,7 +39,7 @@ export default function TtpUserSlotDisableFormModal({
     >
       <Text color="gray">
         Are you sure you want to disable the appointment search for{' '}
-        <strong>{getTtpLocationDisplayName(ttpUserSlot.location)}</strong>?
+        <strong>{getTtpLocationDisplayName(ttpUserTrip.location)}</strong>?
       </Text>
       <Text color="gray" mt={1}>
         You will <strong>stop</strong> receiving notifications for available

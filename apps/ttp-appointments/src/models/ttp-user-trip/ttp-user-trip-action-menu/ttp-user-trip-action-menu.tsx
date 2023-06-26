@@ -12,33 +12,33 @@ import { useQueryClient } from '@tanstack/react-query'
 import { MouseEventHandler, useState } from 'react'
 import TtpApi from 'src/http/ttp-api'
 import updateTtpApiListResponse from 'src/http/update-ttp-api-list-response'
-import { TtpUserSlot } from 'src/models/ttp-user-slot/ttp-user-slot'
-import TtpUserSlotDeleteFormModal from 'src/models/ttp-user-slot/ttp-user-slot-delete-form/ttp-user-slot-delete-form-modal'
-import TtpUserSlotDisableFormModal from 'src/models/ttp-user-slot/ttp-user-slot-disable-form/ttp-user-slot-disable-form-modal'
-import TtpUserSlotEditFormModal from 'src/models/ttp-user-slot/ttp-user-slot-edit-form/ttp-user-slot-edit-form-modal'
-import TtpUserSlotEnableFormModal from 'src/models/ttp-user-slot/ttp-user-slot-enable-form/ttp-user-slot-enable-form-modal'
+import { TtpUserTrip } from 'src/models/ttp-user-trip/ttp-user-trip'
+import TtpUserTripDeleteFormModal from 'src/models/ttp-user-trip/ttp-user-trip-delete-form/ttp-user-trip-delete-form-modal'
+import TtpUserTripDisableFormModal from 'src/models/ttp-user-trip/ttp-user-trip-disable-form/ttp-user-trip-disable-form-modal'
+import TtpUserTripEditFormModal from 'src/models/ttp-user-trip/ttp-user-trip-edit-form/ttp-user-trip-edit-form-modal'
+import TtpUserTripEnableFormModal from 'src/models/ttp-user-trip/ttp-user-trip-enable-form/ttp-user-trip-enable-form-modal'
 
-enum TtpUserSlotAction {
+enum TtpUserTripAction {
   Edit = 'tus-action-edit',
   Enable = 'tus-action-enable',
   Disable = 'tus-action-disable',
   Delete = 'tus-action-delete',
 }
 
-export interface TtpUserSlotActionMenuProps {
+export interface TtpUserTripActionMenuProps {
   menuButtonProps?: MenuButtonProps
   menuProps?: MenuProps
-  ttpUserSlot: TtpUserSlot.IndexRecord
+  ttpUserTrip: TtpUserTrip.IndexRecord
 }
 
-export default function TtpUserSlotActionMenu({
+export default function TtpUserTripActionMenu({
   menuButtonProps,
   menuProps,
-  ttpUserSlot,
-}: TtpUserSlotActionMenuProps) {
+  ttpUserTrip,
+}: TtpUserTripActionMenuProps) {
   const queryClient = useQueryClient()
 
-  const [activeAction, setActiveAction] = useState<TtpUserSlotAction | null>(
+  const [activeAction, setActiveAction] = useState<TtpUserTripAction | null>(
     null,
   )
 
@@ -50,12 +50,12 @@ export default function TtpUserSlotActionMenu({
       return
     }
 
-    switch (actionId as TtpUserSlotAction) {
-      case TtpUserSlotAction.Edit:
-      case TtpUserSlotAction.Enable:
-      case TtpUserSlotAction.Disable:
-      case TtpUserSlotAction.Delete:
-        setActiveAction(actionId as TtpUserSlotAction)
+    switch (actionId as TtpUserTripAction) {
+      case TtpUserTripAction.Edit:
+      case TtpUserTripAction.Enable:
+      case TtpUserTripAction.Disable:
+      case TtpUserTripAction.Delete:
+        setActiveAction(actionId as TtpUserTripAction)
         break
 
       default:
@@ -76,27 +76,27 @@ export default function TtpUserSlotActionMenu({
         />
 
         <MenuList onClick={handleMenuListClick}>
-          <MenuItem data-id={TtpUserSlotAction.Edit}>Edit</MenuItem>
+          <MenuItem data-id={TtpUserTripAction.Edit}>Edit</MenuItem>
 
-          {!ttpUserSlot.isEnabled && (
-            <MenuItem data-id={TtpUserSlotAction.Enable}>Enable</MenuItem>
+          {!ttpUserTrip.isEnabled && (
+            <MenuItem data-id={TtpUserTripAction.Enable}>Enable</MenuItem>
           )}
 
-          {ttpUserSlot.isEnabled && (
-            <MenuItem data-id={TtpUserSlotAction.Disable}>Disable</MenuItem>
+          {ttpUserTrip.isEnabled && (
+            <MenuItem data-id={TtpUserTripAction.Disable}>Disable</MenuItem>
           )}
 
-          <MenuItem data-id={TtpUserSlotAction.Delete}>Delete</MenuItem>
+          <MenuItem data-id={TtpUserTripAction.Delete}>Delete</MenuItem>
         </MenuList>
       </Menu>
 
-      {activeAction === TtpUserSlotAction.Edit && (
-        <TtpUserSlotEditFormModal
-          ttpUserSlot={ttpUserSlot}
+      {activeAction === TtpUserTripAction.Edit && (
+        <TtpUserTripEditFormModal
+          ttpUserTrip={ttpUserTrip}
           onClose={(context) => {
             if (context.type === 'success') {
               queryClient.setQueryData(
-                [TtpApi.userSlotsUrl()],
+                [TtpApi.userTripsUrl()],
                 updateTtpApiListResponse({
                   actionType: 'replace',
                   record: context.result.record,
@@ -109,13 +109,13 @@ export default function TtpUserSlotActionMenu({
         />
       )}
 
-      {activeAction === TtpUserSlotAction.Enable && (
-        <TtpUserSlotEnableFormModal
-          ttpUserSlot={ttpUserSlot}
+      {activeAction === TtpUserTripAction.Enable && (
+        <TtpUserTripEnableFormModal
+          ttpUserTrip={ttpUserTrip}
           onClose={(context) => {
             if (context.type === 'success') {
               queryClient.setQueryData(
-                [TtpApi.userSlotsUrl()],
+                [TtpApi.userTripsUrl()],
                 updateTtpApiListResponse({
                   actionType: 'replace',
                   record: context.result.record,
@@ -128,13 +128,13 @@ export default function TtpUserSlotActionMenu({
         />
       )}
 
-      {activeAction === TtpUserSlotAction.Disable && (
-        <TtpUserSlotDisableFormModal
-          ttpUserSlot={ttpUserSlot}
+      {activeAction === TtpUserTripAction.Disable && (
+        <TtpUserTripDisableFormModal
+          ttpUserTrip={ttpUserTrip}
           onClose={(context) => {
             if (context.type === 'success') {
               queryClient.setQueryData(
-                [TtpApi.userSlotsUrl()],
+                [TtpApi.userTripsUrl()],
                 updateTtpApiListResponse({
                   actionType: 'replace',
                   record: context.result.record,
@@ -147,16 +147,16 @@ export default function TtpUserSlotActionMenu({
         />
       )}
 
-      {activeAction === TtpUserSlotAction.Delete && (
-        <TtpUserSlotDeleteFormModal
-          ttpUserSlot={ttpUserSlot}
+      {activeAction === TtpUserTripAction.Delete && (
+        <TtpUserTripDeleteFormModal
+          ttpUserTrip={ttpUserTrip}
           onClose={(result) => {
             if (result.type === 'success') {
               queryClient.setQueryData(
-                [TtpApi.userSlotsUrl()],
+                [TtpApi.userTripsUrl()],
                 updateTtpApiListResponse({
                   actionType: 'remove',
-                  record: ttpUserSlot,
+                  record: ttpUserTrip,
                 }),
               )
             }

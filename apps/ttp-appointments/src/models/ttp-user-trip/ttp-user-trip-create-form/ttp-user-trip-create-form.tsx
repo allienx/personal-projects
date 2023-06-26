@@ -8,30 +8,34 @@ import {
   FormControl,
   FormLabel,
   ModalFooter,
-  Text,
+  Select,
   Textarea,
 } from '@chakra-ui/react'
 import getTtpLocationDisplayName from 'src/models/ttp-location/get-ttp-location-display-name'
-import { TtpUserSlot } from 'src/models/ttp-user-slot/ttp-user-slot'
-import useTtpUserSlotEditForm, {
-  UseTtpUserSlotEditFormOnSuccess,
-} from 'src/models/ttp-user-slot/ttp-user-slot-edit-form/use-ttp-user-slot-edit-form'
+import { TtpLocation } from 'src/models/ttp-location/ttp-location'
+import useTtpLocationsQuery from 'src/models/ttp-location/use-ttp-locations-query'
+import useTtpUserTripCreateForm, {
+  UseTtpUserTripCreateFormOnSuccess,
+} from 'src/models/ttp-user-trip/ttp-user-trip-create-form/use-ttp-user-trip-create-form'
 
-export interface TtpUserSlotEditFormProps {
-  ttpUserSlot: TtpUserSlot.IndexRecord
+export interface TtpUserTripCreateFormProps {
+  initialTtpLocation: TtpLocation
   onCancel: () => void
-  onSuccess: UseTtpUserSlotEditFormOnSuccess
+  onSuccess: UseTtpUserTripCreateFormOnSuccess
 }
 
-export default function TtpUserSlotEditForm({
-  ttpUserSlot,
+export default function TtpUserTripCreateForm({
+  initialTtpLocation,
   onCancel,
   onSuccess,
-}: TtpUserSlotEditFormProps) {
-  const { bodyField, formState, watch, handleSubmit } = useTtpUserSlotEditForm({
-    ttpUserSlot,
-    onSuccess,
-  })
+}: TtpUserTripCreateFormProps) {
+  const { ttpLocations } = useTtpLocationsQuery()
+
+  const { ttpLocationIdField, bodyField, formState, watch, handleSubmit } =
+    useTtpUserTripCreateForm({
+      initialTtpLocation,
+      onSuccess,
+    })
   const apiErrorMessage = watch('apiErrorMessage')
 
   return (
@@ -55,7 +59,15 @@ export default function TtpUserSlotEditForm({
 
       <FormControl>
         <FormLabel>Location</FormLabel>
-        <Text>{getTtpLocationDisplayName(ttpUserSlot.location)}</Text>
+        <Select {...ttpLocationIdField}>
+          {ttpLocations.map((loc) => {
+            return (
+              <option key={loc.id} value={loc.id}>
+                {getTtpLocationDisplayName(loc)}
+              </option>
+            )
+          })}
+        </Select>
       </FormControl>
 
       <FormControl mt={4}>

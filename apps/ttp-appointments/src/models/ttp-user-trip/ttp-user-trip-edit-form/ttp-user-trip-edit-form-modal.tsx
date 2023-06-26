@@ -1,21 +1,21 @@
 import { TtpApiResponse } from 'src/http/ttp-api-response'
-import { TtpUserSlot } from 'src/models/ttp-user-slot/ttp-user-slot'
-import TtpUserSlotEditForm from 'src/models/ttp-user-slot/ttp-user-slot-edit-form/ttp-user-slot-edit-form'
+import { TtpUserTrip } from 'src/models/ttp-user-trip/ttp-user-trip'
+import TtpUserTripEditForm from 'src/models/ttp-user-trip/ttp-user-trip-edit-form/ttp-user-trip-edit-form'
 import ApiFormModal, { ApiFormModalProps } from 'ui/lib/form/api-form-modal'
 
-export interface TtpUserSlotEditFormModalProps
+export interface TtpUserTripEditFormModalProps
   extends Pick<
-    ApiFormModalProps<TtpApiResponse<TtpUserSlot.IndexRecord>>,
+    ApiFormModalProps<TtpApiResponse<TtpUserTrip.IndexRecord>>,
     'modalProps' | 'onClose'
   > {
-  ttpUserSlot: TtpUserSlot.IndexRecord
+  ttpUserTrip: TtpUserTrip.IndexRecord
 }
 
-export default function TtpUserSlotEditFormModal({
-  ttpUserSlot,
+export default function TtpUserTripEditFormModal({
+  ttpUserTrip,
   onClose,
   ...apiFormModalProps
-}: TtpUserSlotEditFormModalProps) {
+}: TtpUserTripEditFormModalProps) {
   const handleCancel = () => {
     onClose({ type: 'cancel' })
   }
@@ -26,8 +26,8 @@ export default function TtpUserSlotEditFormModal({
       onClose={onClose}
       {...apiFormModalProps}
     >
-      <TtpUserSlotEditForm
-        ttpUserSlot={ttpUserSlot}
+      <TtpUserTripEditForm
+        ttpUserTrip={ttpUserTrip}
         onCancel={handleCancel}
         onSuccess={({ httpResponse }) => {
           onClose({

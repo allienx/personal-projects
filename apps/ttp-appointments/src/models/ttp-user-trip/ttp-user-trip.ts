@@ -1,6 +1,6 @@
 import { TtpLocation } from 'src/models/ttp-location/ttp-location'
 
-export namespace TtpUserSlot {
+export namespace TtpUserTrip {
   export interface IndexRecord {
     id: string
     userId: string
