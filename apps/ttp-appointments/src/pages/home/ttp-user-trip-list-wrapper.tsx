@@ -24,20 +24,20 @@ export default function TtpUserTripListWrapper({
 
   return (
     <Box {...boxProps}>
-      {ttpUserTripsQuery.isFetching && !ttpUserTripsQuery.isError && (
+      {ttpUserTripsQuery.isLoading && !ttpUserTripsQuery.isError && (
         <Center>
           <LoadingSpinner />
         </Center>
       )}
 
-      {!ttpUserTripsQuery.isFetching && ttpUserTripsQuery.isError && (
+      {!ttpUserTripsQuery.isLoading && ttpUserTripsQuery.isError && (
         <Alert status="error">
           <AlertIcon />
           There was an error loading your appointment searches.
         </Alert>
       )}
 
-      {!ttpUserTripsQuery.isFetching &&
+      {!ttpUserTripsQuery.isLoading &&
         !ttpUserTripsQuery.isError &&
         ttpUserTrips && <TtpUserTripList ttpUserTrips={ttpUserTrips} />}
     </Box>
