@@ -24,19 +24,19 @@ export default function TtpUserTripList({
   boxProps,
   ttpUserTrips,
 }: TtpUserTripListProps) {
-  const sortedUserSlots = sortBy(ttpUserTrips, (tus) =>
+  const sortedUserTrips = sortBy(ttpUserTrips, (tus) =>
     getTtpLocationDisplayName(tus.location),
   )
 
   return (
     <Box {...boxProps}>
-      {sortedUserSlots.length === 0 ? (
+      {sortedUserTrips.length === 0 ? (
         <Text>
           You don&apos;t have any appointment searches, find a location above to
           get started!
         </Text>
       ) : (
-        sortedUserSlots.map((ttpUserTrip) => {
+        sortedUserTrips.map((ttpUserTrip) => {
           return (
             <Card key={ttpUserTrip.id} my={6}>
               <CardBody>
@@ -47,6 +47,11 @@ export default function TtpUserTripList({
                     </Text>
                     <Text fontSize="sm">
                       {getTtpLocationCity(ttpUserTrip.location)}
+                    </Text>
+                    <Text fontSize="sm" mt={2}>
+                      {ttpUserTrip.numDays
+                        ? `Searching for the next ${ttpUserTrip.numDays} days:`
+                        : 'Searching for all available appointments:'}
                     </Text>
                   </div>
                   <TtpUserTripActionMenu

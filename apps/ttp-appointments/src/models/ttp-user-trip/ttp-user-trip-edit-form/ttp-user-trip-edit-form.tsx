@@ -6,8 +6,11 @@ import {
   Box,
   Button,
   FormControl,
+  FormHelperText,
   FormLabel,
   ModalFooter,
+  NumberInput,
+  NumberInputField,
   Text,
   Textarea,
 } from '@chakra-ui/react'
@@ -28,11 +31,13 @@ export default function TtpUserTripEditForm({
   onCancel,
   onSuccess,
 }: TtpUserTripEditFormProps) {
-  const { bodyField, formState, watch, handleSubmit } = useTtpUserTripEditForm({
-    ttpUserTrip,
-    onSuccess,
-  })
+  const { numDaysField, bodyField, formState, watch, handleSubmit } =
+    useTtpUserTripEditForm({
+      ttpUserTrip,
+      onSuccess,
+    })
   const apiErrorMessage = watch('apiErrorMessage')
+  const numDays = watch('numDays')
 
   return (
     <form onSubmit={handleSubmit}>
@@ -56,6 +61,19 @@ export default function TtpUserTripEditForm({
       <FormControl>
         <FormLabel>Location</FormLabel>
         <Text>{getTtpLocationDisplayName(ttpUserTrip.location)}</Text>
+      </FormControl>
+
+      <FormControl mt={4}>
+        <FormLabel>Search Range in Days</FormLabel>
+        <NumberInput min={0}>
+          <NumberInputField {...numDaysField} />
+        </NumberInput>
+        <FormHelperText>
+          {!numDays
+            ? `You will be notified for all available appointments.`
+            : `You will be notified for all available appointments that occur within
+          the next ${numDays} days.`}
+        </FormHelperText>
       </FormControl>
 
       <FormControl mt={4}>

@@ -1,3 +1,4 @@
+import { clamp } from 'lodash'
 import { appHttpClient } from 'src/http/app-http-client'
 import TtpApi from 'src/http/ttp-api'
 import { TtpApiResponse } from 'src/http/ttp-api-response'
@@ -40,6 +41,7 @@ export default function useTtpUserTripCreateForm({
         data: {
           ...body,
           locationId: data.ttpLocationId,
+          numDays: data.numDays,
         },
       }
     },
@@ -50,11 +52,23 @@ export default function useTtpUserTripCreateForm({
   const ttpLocationIdField = apiForm.register('ttpLocationId', {
     valueAsNumber: true,
   })
+  const numDaysField = apiForm.register('numDays', {
+    setValueAs: (value) => {
+      const num = Number(value)
+
+      if (!num) {
+        return 0
+      }
+
+      return clamp(num, 0, Number.MAX_SAFE_INTEGER)
+    },
+  })
   const bodyField = apiForm.register('body')
 
   return {
     ...apiForm,
     ttpLocationIdField,
+    numDaysField,
     bodyField,
   }
 }
@@ -82,6 +96,7 @@ function getInitialValues({
   return {
     apiErrorMessage: '',
     ttpLocationId: initialTtpLocation.id,
+    numDays: 0,
     body: JSON.stringify(sampleBody, null, 2),
   }
 }

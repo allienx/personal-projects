@@ -7,6 +7,7 @@ export namespace TtpUserTrip {
     locationId: string
     location: TtpLocation
     isEnabled: boolean
+    numDays: number
     slots: Slot[]
     notifications: Notification[]
   }
