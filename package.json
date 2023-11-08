@@ -5,5 +5,15 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "scripts": {
+    "lint": "turbo run lint --parallel",
+    "lint:fix": "turbo run lint:fix --parallel",
+    "format": "turbo run format --parallel",
+    "format:fix": "turbo run format:fix --parallel",
+    "typecheck": "turbo run typecheck --parallel"
+  },
+  "dependencies": {
+    "turbo": "1.10.16"
+  }
 }

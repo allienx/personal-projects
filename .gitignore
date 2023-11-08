@@ -5,6 +5,7 @@
 
 .idea/
 .pnp/
+.turbo/
 dist/
 node_modules/
 

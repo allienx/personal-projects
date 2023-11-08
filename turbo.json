@@ -1,0 +1,22 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "lint": {
+      "outputs": []
+    },
+    "lint:fix": {
+      "cache": false,
+      "outputs": []
+    },
+    "format": {
+      "outputs": []
+    },
+    "format:fix": {
+      "cache": false,
+      "outputs": []
+    },
+    "typecheck": {
+      "outputs": []
+    }
+  }
+}
