@@ -1,5 +1,5 @@
 import { Box, Text } from '@chakra-ui/react'
-import Fuse from 'fuse.js'
+import Fuse, { FuseResult } from 'fuse.js'
 import { sortBy } from 'lodash'
 import debounce from 'lodash/debounce'
 import { MouseEventHandler, useEffect, useMemo, useState } from 'react'
@@ -50,7 +50,7 @@ export default function TtpLocationSearch({
             item: loc,
             refIndex: index,
             score: 0,
-          } as Fuse.FuseResult<TtpLocation>
+          } as FuseResult<TtpLocation>
         })
   }, [fuse, searchValue, ttpLocations])
 
