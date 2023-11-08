@@ -1,5 +1,5 @@
 # travels 🌎
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/c8af11a3-a698-4638-9ae0-65fd51709c5a/deploy-status)](https://app.netlify.com/sites/super-kangaroo-0e56fc/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1ff30cb2-a8ef-4e47-a630-41728f750811/deploy-status)](https://app.netlify.com/sites/precious-pastelito-b8886c/deploys)
 [![linter: eslint](https://img.shields.io/badge/linter-eslint-blue.svg?style=flat-square)](https://github.com/eslint/eslint)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
