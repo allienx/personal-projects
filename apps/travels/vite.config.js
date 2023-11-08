@@ -8,10 +8,6 @@ export default defineConfig({
 
   server: {
     open: true,
-    port: 3005,
-  },
-
-  preview: {
-    port: 3005,
+    port: 3004,
   },
 })
