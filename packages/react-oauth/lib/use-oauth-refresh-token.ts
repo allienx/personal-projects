@@ -72,17 +72,20 @@ export default function useOauthRefreshToken({
 
   // Check if the current access token is going to expire in the next few minutes.
   // This will run every 5 minutes.
-  useInterval(() => {
-    checkAccessToken({
-      bufferMin: 6,
-      definition,
-      accessToken,
-      expiresAt,
-      refreshToken,
-      tokenUrl,
-      callback,
-    })
-  }, 60 * 1000 * 5)
+  useInterval(
+    () => {
+      checkAccessToken({
+        bufferMin: 6,
+        definition,
+        accessToken,
+        expiresAt,
+        refreshToken,
+        tokenUrl,
+        callback,
+      })
+    },
+    60 * 1000 * 5,
+  )
 }
 
 function checkAccessToken({
